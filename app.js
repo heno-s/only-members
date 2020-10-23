@@ -16,6 +16,7 @@ require("dotenv").config();
 
 // models
 const User = require("./models/users");
+const AppStatistics = require("./models/appStatistics");
 
 // environment variables
 const {MONGODB_URI, SECRET_KEY} = process.env;
@@ -97,7 +98,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(expressEjsLayouts);
-
+app.use((req,res,next) =>{
+  res.header("Content-Security-Policy", "*");
+  next();
+})
 // global res.locals variables
 app.use((req,res,next) =>{
   res.locals.adminLimit = adminLimit;
@@ -107,7 +111,25 @@ app.use((req,res,next) =>{
 app.use((req,res,next) =>{
   res.locals.currentUser = req.user;
   next();
-})
+});
+
+app.use((req,res,next) =>{
+  AppStatistics.findOne()
+    .then(statistics =>{
+      if(req.method == "GET")
+        statistics.visitedPages ++;
+      else if(req.method === "POST")
+        statistics.pageSubmissions ++;
+      else
+        return;
+      statistics.save((err,product) =>{
+        if(err) return next(err);
+      });
+    })
+    .catch(next)
+
+    next();
+});
 
 // using routers
 app.use("/", indexRouter);

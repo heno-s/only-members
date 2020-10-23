@@ -5,6 +5,7 @@ const usersController = require("../controllers/usersController");
 
 router.get("/", usersController.users_get);
 router.get("/:profileId", usersController.user_get);
+router.get("/log-out", usersController.logOut_post);
 
 router.post("/:profileId/admin-configuration", usersController.adminConfig_post);
 

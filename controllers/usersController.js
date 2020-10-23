@@ -6,6 +6,10 @@ exports.user_get = (req,res,next) => {
 
 }
 
+exports.logOut_post = (req,res,next) => {
+
+}
+
 exports.adminConfig_post = (req,res,next) => {
     
 }
