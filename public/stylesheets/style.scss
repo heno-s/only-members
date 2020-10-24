@@ -1,0 +1,17 @@
+// sass specific code
+@import "./partials/variables";
+@import "./partials/functions";
+@import "./partials/mixins";
+
+@import "./partials/resets";
+body {
+  background-color: getColor(primary);
+  color: white;
+  font-family: sans-serif;
+  padding-top: 60px;
+}
+@import "./partials/navigation";
+@import "./partials/hamburger";
+@import "./partials/nav-dropdown.scss";
+
+@import "./partials/utils";

@@ -1,0 +1,41 @@
+.hamburger {
+  font-size: 1rem;
+  cursor: pointer;
+  width: fit-content;
+  padding: 8px 0;
+  margin-bottom: 0.6em;
+
+  &-button {
+    position: relative;
+    width: 25px;
+    height: 4px;
+    background-color: #444;
+    border-radius: 15px;
+    transition: width 200ms ease-in-out;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 4px;
+      background-color: #444;
+      border-radius: 15px;
+    }
+    &::before {
+      top: -6px;
+    }
+    &::after {
+      bottom: -6px;
+      transition: width 200ms ease-in-out;
+    }
+  }
+}
+
+.hamburger-open {
+  .hamburger-button {
+    width: 20px;
+  }
+  .hamburger-button::after {
+    width: 15px;
+  }
+}

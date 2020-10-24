@@ -1,0 +1,33 @@
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (min-width: 530px) {
+  .ml-1-sm {
+    margin-left: 1em !important;
+  }
+  .ml-auto-sm {
+    margin-left: auto !important;
+  }
+}
+
+.rel {
+  position: relative;
+}
+
+.order-1 {
+  order: 1;
+}
+
+.order-2 {
+  order: 2;
+}
+
+.order-3 {
+  order: 3;
+}
+
+.order-4 {
+  order: 4;
+}

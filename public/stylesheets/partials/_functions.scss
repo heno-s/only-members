@@ -1,0 +1,7 @@
+@function getColor($color) {
+  @return map-get($map: $colors, $key: $color);
+}
+
+@function getBreakPoint($resolution) {
+  @return map-get($map: $break-points, $key: $resolution);
+}

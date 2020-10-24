@@ -1,0 +1,66 @@
+<nav class="navigation">
+    <div class="hamburger hide-sm">
+        <div class="hamburger-button"></div>
+    </div>
+        <div class="nav-collapse-menu">
+            <ul class="nav-sm-flex">
+                <li><a href="/">Home</a></li>
+                <% if (currentUser) { %>
+                <li class="ml-auto-sm order-3"><a href="/users/<%= currentUser._id %>">Me</a></li>
+                <li class="ml-1-sm order-4"><a href="/users/log-out">Log out</a></li> 
+                <% } else {%>
+                <li class="ml-auto-sm order-3"><a href="/auth/register">Register</a></li>
+                <li class="ml-1-sm order-4"><a href="/auth/log-in">Log in</a></li>
+                <% } %>
+                <li class="rel ml-1-sm">
+                    <span class="rel">
+                            <span class="dropdown-trigger">
+                                Other
+                                <img class="dropdown-button" width="15" src="/images/dropdown.png" alt="dropdown button">
+                            </span>
+                        <ul class="dropdown-menu">
+                        <li><a href="/benefits/join-the-club">become member</a></li>
+                        <li><a href="/benefits/become-an-admin">become an admin</a></li>
+                        <li><a href="/boards/members">all members</a></li>
+                        <li><a href="/boards/admins">all admins</a></li>
+                        </ul>
+                    </span>
+                </li>
+                
+            </ul>
+        </div>
+</nav>
+
+<script>
+    const hamburger = document.querySelector(".hamburger");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    const navbar = document.querySelector(".navigation");
+    const navbarTransitionTime = parseFloat(getComputedStyle(navbar).transitionDuration) * 1000;
+
+    hamburger.addEventListener("click", event =>{
+        hamburger.classList.toggle("hamburger-open");
+        navbar.classList.toggle("navigation-show");
+        dropdownMenu.classList.remove("dropdown-menu-show");
+        if(navbar.style.overflow === "visible"){
+            navbar.style.overflow = "";
+        }
+        else{
+            setTimeout(() => {
+                navbar.style.overflow = "visible";
+            }, navbarTransitionTime);
+        }
+    });
+    document.querySelector(".dropdown-trigger").addEventListener("click", event =>{
+        if(window.innerWidth < 530)
+        {
+            dropdownMenu.classList.toggle("dropdown-menu-show");
+            dropdownMenu.classList.remove("dropdown-menu-show-sm");
+        }
+        else
+        {
+            dropdownMenu.classList.toggle("dropdown-menu-show-sm");
+            dropdownMenu.classList.remove("dropdown-menu-show");
+        }
+
+    });
+</script>

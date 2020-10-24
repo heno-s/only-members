@@ -1,0 +1,36 @@
+.dropdown-trigger {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  padding: 0 10px;
+  right: 0;
+  white-space: nowrap;
+  top: 120%;
+  transform: translate(80%);
+  font-size: 0.7rem;
+  border-radius: 5px;
+  background-color: getColor(secondary);
+  transition: height 500ms ease-in-out, padding 500ms ease-in-out;
+  @media (min-width: getBreakPoint(sm)) {
+    font-size: 0.9rem;
+  }
+}
+.dropdown-menu-show {
+  height: 79px;
+  padding: 5px 10px;
+}
+
+@media (min-width: getBreakPoint(sm)) {
+  .dropdown-menu-show-sm {
+    height: 99px;
+    padding: 5px 10px;
+  }
+}
+.dropdown-button {
+  vertical-align: middle;
+  width: 15px;
+}

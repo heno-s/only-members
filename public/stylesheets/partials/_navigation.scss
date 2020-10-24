@@ -1,0 +1,43 @@
+.navigation {
+  height: 45px;
+  overflow: hidden;
+  font-size: 1.3rem;
+  background-color: getColor(secondary);
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 10px 10px #555;
+  padding: 0.7rem 0.7rem;
+  transition: height 1s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  @media (min-width: 530px) {
+    font-size: 1.6rem;
+    height: initial;
+    overflow: visible;
+  }
+}
+@media (min-width: 530px) {
+  .nav-sm-flex {
+    @include flexbox();
+  }
+
+  .hide-sm {
+    display: none;
+  }
+}
+.navigation-show {
+  height: 171px;
+}
+
+@media (min-width: getBreakPoint(sm)) {
+  .navigation {
+    height: initial; // had to do it here not in the .navigation selector up, because of .navigation show. It would override the initial value
+  }
+}
+
+.nav-collapse-menu {
+  li {
+    margin-bottom: 0.3em;
+  }
+}
