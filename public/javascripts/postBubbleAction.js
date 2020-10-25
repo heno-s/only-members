@@ -10,6 +10,10 @@ const content = document.querySelector(".post-form__body");
 bubble.addEventListener("click", event =>{
     modal.classList.toggle("display-show");
     postForm.classList.toggle("display-show");
+    
+    // close configs if they are open and bubble is clicked
+    config.classList.remove("opacity-1");
+    config.classList.remove("pointer-events-all");
 })
 
 modal.addEventListener("click", event =>{
@@ -22,6 +26,7 @@ modal.addEventListener("click", event =>{
 gear.addEventListener("click", event => {
     gear.classList.toggle("rotate-360");
     config.classList.toggle("opacity-1");
+    config.classList.toggle("pointer-events-all");
 })
 
 /* config action */

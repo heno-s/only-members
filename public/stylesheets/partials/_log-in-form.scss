@@ -1,8 +1,5 @@
 .log-in-container {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  @include centerByPosition("true", "true");
   width: 90%;
   max-width: 500px;
   border-radius: 20px;

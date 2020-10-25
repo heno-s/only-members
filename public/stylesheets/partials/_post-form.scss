@@ -35,13 +35,13 @@
   }
   &__config {
     font-size: 0.8rem;
-    opacity: 1;
     position: absolute;
     right: 25px;
     top: 0;
     transform: translateY(-90%);
     border-radius: 10px;
     opacity: 0;
+    pointer-events: none;
     padding: 0.7em 1.6em 1.3em;
     overflow: hidden;
     background-color: grey;
@@ -93,9 +93,8 @@
     width: 10px;
     height: 10px;
     background-color: black;
-    position: absolute;
     right: 10px;
-    top: 50%;
+    @include centerByPosition("true", "false", absolute);
     transform: translateY(-50%) rotate(45deg);
   }
   &::before {
@@ -103,10 +102,8 @@
     width: 15px;
     height: 2px;
     background-color: getColor(secondary);
-    position: absolute;
     right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
+    @include centerByPosition("true", "false", absolute);
     z-index: 1;
   }
 }

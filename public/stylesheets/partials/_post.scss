@@ -1,3 +1,7 @@
+.all-posts {
+  max-height: calc(100vh - #{getNavbarOffset(md) - #{$body-padding}});
+  overflow: auto;
+}
 .post {
   background-color: getColor(primary-light);
   border-radius: 20px;
