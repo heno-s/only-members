@@ -21,9 +21,14 @@ body {
 @import "./partials/hamburger";
 @import "./partials/nav-dropdown.scss";
 
+@import "./partials/buttons";
+
 @import "./partials/post";
 @import "./partials/create-post-bubble";
 @import "./partials/post-form";
 @import "./partials/modal";
+
+@import "./partials/form";
+@import "./partials/log-in-form";
 
 @import "./partials/utils";

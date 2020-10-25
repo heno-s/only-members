@@ -1,0 +1,12 @@
+.btn {
+  cursor: pointer;
+  padding: 0.6em 1.3em;
+  font-size: 1rem;
+  border-radius: 7px;
+  border: none;
+  background-color: getColor(btn-primary);
+}
+
+.log-in-submit-btn {
+  padding: 0.4em 2em;
+}

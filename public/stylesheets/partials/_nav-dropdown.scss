@@ -42,4 +42,9 @@
 .dropdown-button {
   vertical-align: middle;
   width: 15px;
+  transition: transform 300ms linear;
+}
+
+.dropdown-button-open {
+  transform: rotate(180deg);
 }

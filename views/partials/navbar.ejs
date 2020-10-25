@@ -37,11 +37,16 @@
     const dropdownMenu = document.querySelector(".dropdown-menu");
     const navbar = document.querySelector(".navigation");
     const navbarTransitionTime = parseFloat(getComputedStyle(navbar).transitionDuration) * 1000;
-
+    const dropdownButton = document.querySelector(".dropdown-button");
+    
     hamburger.addEventListener("click", event =>{
         hamburger.classList.toggle("hamburger-open");
         navbar.classList.toggle("navigation-show");
+
+        // resetting (hiding) dropdown, when it is not closed and hamburger is clicked to collapse nav
         dropdownMenu.classList.remove("dropdown-menu-show");
+        dropdownButton.classList.remove("dropdown-button-open");
+        
         if(!navbar.classList.contains("navigation-show")){
             navbar.style.overflow = "";
         }
@@ -59,6 +64,7 @@
         }
     });
     document.querySelector(".dropdown-trigger").addEventListener("click", event =>{
+        dropdownButton.classList.toggle("dropdown-button-open");
         if(window.innerWidth > 700)
         {
             dropdownMenu.classList.toggle("dropdown-menu-show-md");

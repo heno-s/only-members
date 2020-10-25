@@ -22,6 +22,31 @@ a {
   text-decoration: none;
 }
 
+input,
+textarea {
+  border-radius: 10px;
+  background-color: #c4c4c4;
+  border: none;
+  padding: 0.6em 1em;
+}
+
+textarea {
+  resize: vertical;
+}
+
+select {
+  cursor: pointer;
+  border: none;
+  padding: 0.3em 0.5em;
+  border-radius: 500px;
+  background-color: #c4c4c4;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3em;
+}
+
 body {
   background-color: #dc8484;
   color: white;
@@ -50,13 +75,14 @@ body {
   border-radius: 0 0 30px 30px;
   -webkit-box-shadow: 0 10px 10px #555;
           box-shadow: 0 10px 10px #555;
-  padding: 1rem 1rem;
+  padding: 0.8rem 1.5rem;
   -webkit-transition: height 1s ease-in-out;
   transition: height 1s ease-in-out;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 990;
 }
 
 @media (min-width: 430px) {
@@ -85,7 +111,7 @@ body {
 }
 
 .navigation-show {
-  height: 171px;
+  height: 176px;
 }
 
 @media (min-width: 430px) {
@@ -200,6 +226,28 @@ body {
 .dropdown-button {
   vertical-align: middle;
   width: 15px;
+  -webkit-transition: -webkit-transform 300ms linear;
+  transition: -webkit-transform 300ms linear;
+  transition: transform 300ms linear;
+  transition: transform 300ms linear, -webkit-transform 300ms linear;
+}
+
+.dropdown-button-open {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.btn {
+  cursor: pointer;
+  padding: 0.6em 1.3em;
+  font-size: 1rem;
+  border-radius: 7px;
+  border: none;
+  background-color: #63badf;
+}
+
+.log-in-submit-btn {
+  padding: 0.4em 2em;
 }
 
 .post {
@@ -484,18 +532,8 @@ body {
   }
 }
 
-.post-form__config label {
-  display: block;
-  margin-bottom: 0.3em;
-}
-
 .post-form__config select {
-  cursor: pointer;
-  border: none;
-  border-radius: 500px;
   width: 100%;
-  background-color: #c4c4c4;
-  padding: 0.3em 0.5em;
 }
 
 @media (min-width: 700px) {
@@ -513,8 +551,6 @@ body {
   color: white;
   display: block;
   border: none;
-  border-radius: 5px;
-  padding: 0.6em 1em;
   width: 100%;
 }
 
@@ -534,10 +570,6 @@ body {
   .post-form__title {
     font-size: 1.3rem;
   }
-}
-
-.post-form__body {
-  resize: vertical;
 }
 
 @media (min-width: 700px) {
@@ -583,6 +615,53 @@ body {
     z-index: 998;
     display: none;
   }
+}
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+.log-in-container {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 10px 3px black;
+          box-shadow: 0px 0px 10px 3px black;
+  padding: 1.5em 0;
+  background-color: #cd6363;
+}
+
+.log-in-container form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+
+.log-in-container .form-group {
+  width: 70%;
+}
+
+.log-in-container input {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .mx-auto {

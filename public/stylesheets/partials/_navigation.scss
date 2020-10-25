@@ -5,12 +5,13 @@
   background-color: getColor(primary-light);
   border-radius: 0 0 30px 30px;
   box-shadow: 0 10px 10px #555;
-  padding: 1rem 1rem;
+  padding: 0.8rem 1.5rem;
   transition: height 1s ease-in-out;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 990;
   @media (min-width: getBreakPoint(sm)) {
     font-size: 1.3rem;
     height: initial;
@@ -30,7 +31,7 @@
   }
 }
 .navigation-show {
-  height: 171px;
+  height: 176px;
 }
 
 @media (min-width: getBreakPoint(sm)) {
