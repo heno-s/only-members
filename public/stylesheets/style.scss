@@ -8,10 +8,22 @@ body {
   background-color: getColor(primary);
   color: white;
   font-family: sans-serif;
-  padding-top: 60px;
+  padding: 30px 30px;
+  padding-top: 70px;
+  @media (min-width: getBreakPoint(sm)) {
+    padding-top: 85px;
+  }
+  @media (min-width: getBreakPoint(md)) {
+    padding-top: 100px;
+  }
 }
 @import "./partials/navigation";
 @import "./partials/hamburger";
 @import "./partials/nav-dropdown.scss";
+
+@import "./partials/post";
+@import "./partials/create-post-bubble";
+@import "./partials/post-form";
+@import "./partials/modal";
 
 @import "./partials/utils";

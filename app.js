@@ -19,7 +19,7 @@ const User = require("./models/users");
 const AppStatistics = require("./models/appStatistics");
 
 // environment variables
-const {MONGODB_URI, SECRET_KEY} = process.env;
+const {MONGODB_URI, SECRET_KEY, MEMBER_SECRET} = process.env;
 
 // standard variables
 const adminLimit = 5;

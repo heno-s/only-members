@@ -13,10 +13,13 @@
   transform: translate(80%);
   font-size: 0.7rem;
   border-radius: 5px;
-  background-color: getColor(secondary);
+  background-color: getColor(primary-light);
   transition: height 500ms ease-in-out, padding 500ms ease-in-out;
   @media (min-width: getBreakPoint(sm)) {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+  }
+  @media (min-width: getBreakPoint(md)) {
+    font-size: 1rem;
   }
 }
 .dropdown-menu-show {
@@ -26,8 +29,14 @@
 
 @media (min-width: getBreakPoint(sm)) {
   .dropdown-menu-show-sm {
-    height: 99px;
+    height: 92px;
     padding: 5px 10px;
+  }
+}
+@media (min-width: getBreakPoint(md)) {
+  .dropdown-menu-show-md {
+    height: 107px;
+    padding: 8px 13px;
   }
 }
 .dropdown-button {

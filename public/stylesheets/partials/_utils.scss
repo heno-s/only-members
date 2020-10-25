@@ -2,8 +2,13 @@
   margin-left: auto !important;
   margin-right: auto !important;
 }
-
-@media (min-width: 530px) {
+.ml-1 {
+  margin-left: 1em !important;
+}
+.mb-1 {
+  margin-bottom: 1em !important;
+}
+@media (min-width: getBreakPoint(sm)) {
   .ml-1-sm {
     margin-left: 1em !important;
   }
@@ -11,7 +16,9 @@
     margin-left: auto !important;
   }
 }
-
+.member {
+  color: #faff00;
+}
 .rel {
   position: relative;
 }
@@ -30,4 +37,16 @@
 
 .order-4 {
   order: 4;
+}
+
+.display-show {
+  display: revert;
+}
+
+.rotate-360 {
+  transform: rotate(180deg);
+}
+
+.opacity-1 {
+  opacity: 1;
 }

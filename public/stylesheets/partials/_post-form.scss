@@ -1,0 +1,124 @@
+.post-form {
+  display: none;
+  position: fixed;
+  right: 50%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 80%;
+  border-radius: 10px;
+  z-index: 999;
+  @media (min-width: getBreakPoint(md)) {
+    border-radius: 25px;
+  }
+  background-color: getColor(primary-light);
+  padding: 1.4em;
+  max-width: 600px;
+  @media (min-width: getBreakPoint(md)) {
+    right: 20px;
+    bottom: 120px;
+    padding: 1.8em 2.2em;
+    top: unset;
+    transform: none;
+  }
+  &__config-img {
+    cursor: pointer;
+    width: 18px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    transition: transform 600ms linear;
+    @media (min-width: getBreakPoint(md)) {
+      width: 25px;
+      right: 8px;
+      top: 8px;
+    }
+  }
+  &__config {
+    font-size: 0.8rem;
+    opacity: 1;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    transform: translateY(-90%);
+    border-radius: 10px;
+    opacity: 0;
+    padding: 0.7em 1.6em 1.3em;
+    overflow: hidden;
+    background-color: grey;
+    transition: opacity 500ms linear;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 1rem;
+      right: 35px;
+      top: -5px;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.3em;
+    }
+    select {
+      cursor: pointer;
+      border: none;
+      border-radius: 500px;
+      width: 100%;
+      background-color: getColor(secondary);
+      padding: 0.3em 0.5em;
+      @media (min-width: getBreakPoint(md)) {
+        font-size: 0.9rem;
+      }
+    }
+    option {
+      cursor: pointer;
+    }
+  }
+  &__title,
+  &__body {
+    background-color: getColor(primary-dark);
+    color: white;
+    display: block;
+    border: none;
+    border-radius: 5px;
+    padding: 0.6em 1em;
+    width: 100%;
+    @media (min-width: getBreakPoint(md)) {
+      border-radius: 10px;
+    }
+  }
+  &__title {
+    margin-bottom: 1em;
+    font-size: 1rem;
+    font-weight: bold;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 1.3rem;
+    }
+  }
+  &__body {
+    resize: vertical;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 1rem;
+    }
+  }
+}
+
+.select-wrapper {
+  &::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  &::before {
+    content: "";
+    width: 15px;
+    height: 2px;
+    background-color: getColor(secondary);
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+}

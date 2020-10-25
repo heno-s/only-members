@@ -1,0 +1,13 @@
+@media (max-width: getBreakPoint(md)) {
+  .modal {
+    background-color: #4448;
+    position: fixed;
+    width: 100%;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+    bottom: 0px;
+    z-index: 998;
+    display: none;
+  }
+}

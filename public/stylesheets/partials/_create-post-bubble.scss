@@ -1,0 +1,26 @@
+.create-post-bubble {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.3em 0.3em;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: getColor(secondary);
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border-bottom-right-radius: 0;
+  text-align: center;
+  @include flexbox(center, center);
+  transition: transform 200ms ease-in-out;
+  &:hover {
+    transform: scale(1.1) translate(-10%, -10%);
+  }
+  &:active {
+    transform: scale(1.05);
+  }
+}
+
+.bubble-active {
+  transform: scale(1.1) translate(-10%, -10%);
+}

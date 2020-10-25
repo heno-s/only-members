@@ -5,7 +5,14 @@
   $wrap: nowrap
 ) {
   display: flex;
-  justify-content: $justify-content;
-  align-items: $align-items;
-  flex-flow: $direction $wrap;
+  // added if statements for lesser code in the output css file if the values are defaults
+  @if ($justify-content != stretch) {
+    justify-content: $justify-content;
+  }
+  @if ($align-items != stretch) {
+    align-items: $align-items;
+  }
+  @if ($direction != row or $wrap != nowrap) {
+    flex-flow: $direction $wrap;
+  }
 }

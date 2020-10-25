@@ -1,8 +1,11 @@
 $colors: (
   primary: #dc8484,
-  secondary: #ff8080,
+  primary-light: #ff8080,
+  primary-dark: #cd6363,
+  secondary: #c4c4c4,
 );
 
 $break-points: (
-  sm: 530px,
+  sm: 430px,
+  md: 700px,
 );

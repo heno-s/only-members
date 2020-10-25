@@ -1,2 +1,77 @@
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
+            <!-- diplniť foreach -->
+<div class="post">
+    <div class="post__header">
+            <!-- diplniť href -->
+        <a href="/doplniť" class="post__profile--trigger">
+            <!-- diplniť img src -->
+            <img class="post__profile-image" src="/images/users/profile-picture.png" alt="profile picture">
+            <div class="post__profile-info">
+                <h3 class="post__profile-name">
+                    <!-- doplniť -->
+                    janko12
+                </h3>
+                <h6 class="post__profile-rank member">
+                    <!-- doplniť -->
+                    member
+                </h6>
+            </div>
+        </a>
+        <h1 class="post__title">
+                    <!-- doplniť -->
+            example title example title example title example title example title
+        </h1>
+    </div>
+    <p class="post__body">
+                    <!-- doplniť -->
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in?
+    </p>
+    <div class="post__footer">
+        <p class="">
+                    <!-- doplniť -->
+            posted: 
+        </p>
+                    <!-- doplniť if edited a title -->
+        <p class="" title="time">
+edited
+        </p>
+    </div>
+</div>
+
+
+<div class="modal">
+</div>
+<!-- doplniť action, gear element podmienku-->
+<form action="" method="POST" class="post-form">
+    <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
+    <!-- doplniť -->
+    <input class="post-form__title" type="text" placeholder="Title" >
+    <!-- doplniť -->
+    <textarea class="post-form__body" name="" id="" cols="30" rows="10" placeholder="Your thoughts"></textarea>
+    <div class="post-form__config">
+        <div class="mb-1">
+            <label for="title-color">Choose title color:</label>
+            <div class="rel select-wrapper">
+                <select name="titleColor" id="title-color">
+                    <option value="#ffffff">default</option>
+                    <!-- doplniť option iteration -->
+                </select>
+            </div>
+        </div>
+        <div>
+            <label for="content-color">Choose message color:</label>
+            <div class="rel select-wrapper">
+                <select name="contentColor" id="content-color">
+                    <option value="#ffffff">default</option>
+                    <!-- doplniť option iteration -->
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="create-post-bubble">
+    create post
+</div>
+
+<script src="/javascripts/postBubbleAction.js">
+
+</script>

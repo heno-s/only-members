@@ -1,0 +1,99 @@
+.post {
+  background-color: getColor(primary-light);
+  border-radius: 20px;
+  padding: 1em;
+  max-width: 750px;
+  margin: 0 auto;
+  margin-bottom: 2em;
+  @media (min-width: getBreakPoint(md)) {
+    border-radius: 25px;
+  }
+  &__header {
+    @media (min-width: getBreakPoint(sm)) {
+      @include flexbox();
+    }
+    margin-bottom: 1em;
+  }
+  &__profile--trigger,
+  &__title,
+  &__body {
+    background-color: getColor(primary-dark);
+  }
+  &__profile--trigger {
+    @include flexbox($align-items: center);
+    width: fit-content;
+    border-radius: 10px;
+    padding: 0.6em;
+    margin-bottom: 1em;
+    @media (min-width: getBreakPoint(sm)) {
+      margin-bottom: 0;
+      flex: 1;
+    }
+    @media (min-width: getBreakPoint(md)) {
+      padding: 1em;
+      border-radius: 15px;
+    }
+  }
+  &__profile-image {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    @media (min-width: getBreakPoint(md)) {
+      width: 35px;
+      height: 35px;
+    }
+  }
+  &__profile-info {
+    margin-left: 1em;
+    @media (min-width: getBreakPoint(md)) {
+      margin-left: 1.5em;
+    }
+  }
+  &__profile-name {
+    font-size: 0.8rem;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 1rem;
+    }
+  }
+  &__profile-rank {
+    font-size: 0.7rem;
+    text-align: center;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 0.9rem;
+    }
+  }
+  &__title {
+    @include flexbox($align-items: center);
+    font-size: 1rem;
+    line-height: 1.35;
+    border-radius: 10px;
+    padding: 0.5em 0.7em;
+    @media (min-width: getBreakPoint(sm)) {
+      margin-left: 0.4em;
+      flex: 4;
+    }
+    @media (min-width: getBreakPoint(md)) {
+      padding: 0.8em 1em;
+      border-radius: 15px;
+    }
+  }
+  &__body {
+    font-size: 0.85rem;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    margin-bottom: 0.5em;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 1rem;
+      padding: 0.8em 1.2em;
+    }
+  }
+  &__footer {
+    font-family: serif;
+    font-size: 0.8rem;
+    padding-left: 1em;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 0.9rem;
+      padding-left: 1.35em;
+    }
+  }
+}
