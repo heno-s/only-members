@@ -22,6 +22,11 @@ a {
   text-decoration: none;
 }
 
+label {
+  display: block;
+  margin-bottom: 0.3em;
+}
+
 input,
 textarea {
   border-radius: 10px;
@@ -42,9 +47,9 @@ select {
   background-color: #c4c4c4;
 }
 
-label {
-  display: block;
-  margin-bottom: 0.3em;
+:required {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 body {
@@ -621,6 +626,38 @@ body {
   margin-bottom: 1em;
 }
 
+.form-respond-text {
+  display: none;
+  font-size: 0.8rem;
+  margin-top: 0.3em;
+}
+
+.register-introduction {
+  margin-bottom: 2em;
+}
+
+.register-introduction h1 {
+  font-size: 1.3rem;
+  margin-bottom: 0.7em;
+}
+
+.register-form-container {
+  padding: 1em 0;
+  border-radius: 20px;
+  -webkit-box-shadow: 5px 5px 10px black;
+          box-shadow: 5px 5px 10px black;
+  background-color: #cd6363;
+}
+
+.register-form-container form {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.register-form-container input {
+  width: 100%;
+}
+
 .log-in-container {
   position: fixed;
   left: 50%;
@@ -662,6 +699,10 @@ body {
 
 .text-center {
   text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
 }
 
 .mx-auto {
