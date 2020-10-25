@@ -3,7 +3,7 @@ const Schema = require("mongoose").Schema;
 const moment = require("moment");
 
 const userSchema = new Schema({
-    username: {type: String, required: true},
+    userName: {type: String, required: true},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     member: {type: Boolean, default: false},
@@ -23,6 +23,10 @@ userSchema.virtual("last_log_in_time_formatted").get(function() {
 
 userSchema.virtual("last_log_out_time_formatted").get(function() {
     return moment(this.lastLogOutTime).format("DD.MM.YYYY");
+});
+
+userSchema.virtual("fullName").get(function() {
+    return this.firstName + " " + this.lastName;
 });
 
 userSchema.virtual("url").get(function(){

@@ -1,12 +1,9 @@
 exports.users_get = (req,res,next) => {
+    return res.render("profile", {title: "profile"});
     res.redirect("/");
 }
 
 exports.user_get = (req,res,next) => {
-
-}
-
-exports.logOut_post = (req,res,next) => {
 
 }
 

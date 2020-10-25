@@ -1,3 +1,3 @@
 exports.index_get = (req,res,next) => {
-    res.render("membersAdminsList", { title: "Only Members"})
+    res.render("index", { title: "Only Members"})
 }
