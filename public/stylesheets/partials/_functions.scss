@@ -5,3 +5,7 @@
 @function getBreakPoint($resolution) {
   @return map-get($map: $break-points, $key: $resolution);
 }
+
+@function getNavbarOffset($resolution) {
+  @return map-get($map: $navigation-offset, $key: $resolution);
+}

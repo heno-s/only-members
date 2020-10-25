@@ -3,7 +3,10 @@
 }
 
 .form-respond-text {
-  display: none;
   font-size: 0.8rem;
   margin-top: 0.3em;
+}
+
+.form-respond-text-invalid {
+  color: #ffb800;
 }

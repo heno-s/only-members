@@ -1,11 +1,19 @@
-.register-container {
-}
-
 .register-introduction {
+  margin: 0 auto;
   margin-bottom: 2em;
+  max-width: 500px;
   h1 {
     font-size: 1.3rem;
     margin-bottom: 0.7em;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 1.65rem;
+    }
+  }
+  li {
+    font-size: 1rem;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 1.12rem;
+    }
   }
 }
 
@@ -14,6 +22,9 @@
   border-radius: 20px;
   box-shadow: 5px 5px 10px black;
   background-color: getColor(primary-dark);
+  margin: 0 auto;
+  max-width: 500px;
+
   form {
     margin: 0 auto;
     width: 80%;
