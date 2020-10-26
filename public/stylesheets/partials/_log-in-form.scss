@@ -1,6 +1,10 @@
+.log-in-aligner {
+  @include flexbox(center, center, column);
+  min-height: getMinVhHeight(md);
+  margin-top: -60px;
+}
 .log-in-container {
-  @include centerByPosition("true", "true");
-  width: 90%;
+  width: 100%;
   max-width: 500px;
   border-radius: 20px;
   box-shadow: 0px 0px 10px 3px black;

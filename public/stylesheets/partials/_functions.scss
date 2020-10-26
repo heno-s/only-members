@@ -9,3 +9,7 @@
 @function getNavbarOffset($resolution) {
   @return map-get($map: $navigation-offset, $key: $resolution);
 }
+
+@function getMinVhHeight($resolution) {
+  @return calc(100vh - #{getNavbarOffset($resolution) - #{$body-padding}});
+}

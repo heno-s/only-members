@@ -8,14 +8,12 @@ const expressEjsLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
 const compression = require("compression");
 const helmet = require("helmet");
 require("dotenv").config();
 
 // models
-const User = require("./models/users");
+const Users = require("./models/users");
 const AppStatistics = require("./models/appStatistics");
 
 // environment variables
@@ -37,40 +35,19 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 
-/* passport setup */
-passport.use(
-  new LocalStrategy((username,password,done) =>{
-    User.findOne(username)
-      .then(user =>{
-        if(!user){
-          return done(null,false,{message: "Incorrect username"});
-        }
-        bcrypt.compare(password,user.password)
-          .then(success =>{
-            if(!success){
-              return done(null,false,{message: "Incorrect password"});
-            }
-            else{
-              return done(null,user);
-            }
-          })
-          .catch(done);
-      })
-      .catch(done);
-})
-);
+
 
 passport.serializeUser((user,done) =>{
   done(null,user._id);
 });
 
 passport.deserializeUser((id,done) =>{
-  User.findById(id)
+  Users.findById(id)
     .then(user =>{
       done(null,user);
     })
     .catch(done);
-})
+});
 /* initializing express app and working with just app till the end */
 const app = express();
 
@@ -110,6 +87,7 @@ app.use((req,res,next) =>{
 
 app.use((req,res,next) =>{
   res.locals.currentUser = req.user;
+  console.log(req.user);
   next();
 });
 

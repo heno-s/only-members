@@ -1,9 +1,34 @@
 const { body,validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
 // models
 const Users = require("../models/users");
 
-
+/* passport setup */
+passport.use(
+    new LocalStrategy({usernameField: "userName"},(userName,password,done) =>{
+      Users.findOne({userName})
+        .then(user =>{
+          if(!user){
+            return done(null,false,{message: "Incorrect username"});
+          }
+          bcrypt.compare(password,user.password)
+            .then(success =>{
+              if(!success){
+                return done(null,false,{message: "Incorrect password"});
+              }
+              else{
+                return done(null,user);
+              }
+            })
+            .catch(done);
+        })
+        .catch(done);
+  })
+  );
+  
 exports.auth_get = (req,res,next) => {
     res.redirect("/");
 }
@@ -55,10 +80,20 @@ exports.logIn_get = (req,res,next) => {
     res.render("log-in", {title: "Log in"})
 }
 
-exports.logIn_post = (req,res,next) => {
-    
-}
+exports.logIn_post =[
+    body(["userName", "password"], " field must not be empty").isLength({min: 1}).escape(),
+    (req,res,next) => {
+        const errors = validationResult(req);
+
+        if(!errors.isEmpty()){
+            res.render("log-in", {title: "Log in", errors: errors.array()})
+        }else{
+            passport.authenticate("local", {successRedirect: "/",failureRedirect: "/auth/log-in"})(req,res,next);
+        }
+    }
+]
 
 exports.logOut_post = (req,res,next) => {
-
+  req.logout();
+  res.redirect("/auth/log-in");
 }
