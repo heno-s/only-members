@@ -1,8 +1,9 @@
+            <!-- diplniť submit button pre create post (malá šípka) -->
             <!-- diplniť foreach -->
 <div class="post">
     <div class="post__header">
             <!-- diplniť href -->
-        <a href="/doplniť" class="post__profile--trigger">
+        <a href="" class="post__profile--trigger">
             <!-- diplniť img src -->
             <img class="post__profile-image" src="/images/users/profile-picture.png" alt="profile picture">
             <div class="post__profile-info">
@@ -38,41 +39,46 @@ edited
     </div>
 </div>
 
-
-<div class="modal">
-</div>
-<!-- doplniť action, gear element podmienku-->
-<form action="" method="POST" class="post-form">
-    <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
-    <!-- doplniť -->
-    <input class="post-form__title" type="text" placeholder="Title" >
-    <!-- doplniť -->
-    <textarea class="post-form__body" name="" id="" cols="30" rows="10" placeholder="Your thoughts"></textarea>
-    <div class="post-form__config">
-        <div class="mb-1">
-            <label for="title-color">Choose title color:</label>
-            <div class="rel select-wrapper">
-                <select name="titleColor" id="title-color">
-                    <option value="#ffffff">default</option>
-                    <!-- doplniť option iteration -->
-                </select>
-            </div>
-        </div>
-        <div>
-            <label for="content-color">Choose message color:</label>
-            <div class="rel select-wrapper">
-                <select name="contentColor" id="content-color">
-                    <option value="#ffffff">default</option>
-                    <!-- doplniť option iteration -->
-                </select>
-            </div>
-        </div>
+<% if (currentUser) { %>
+ 
+    <div class="modal">
     </div>
-</form>
-<div class="create-post-bubble">
-    create post
-</div>
-
-<script src="/javascripts/postBubbleAction.js">
-
-</script>
+    <!-- doplniť action, gear element podmienku-->
+    <form action="/users/create-post" method="POST" class="post-form">
+        <% if (currentUser.isMember) { %>
+            <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
+        <% } %>
+        <!-- doplniť -->
+        <input class="post-form__title" type="text" placeholder="Title" name="postTitle">
+        <!-- doplniť -->
+        <textarea class="post-form__body" name="postBody" id="post-body" cols="30" rows="10" placeholder="Your thoughts"></textarea>
+        <% console.log(currentUser.isMember) %> 
+        <% if (currentUser.isMember) { %>
+            <div class="post-form__config">
+                <div class="mb-1">
+                    <label for="title-color">Choose title color:</label>
+                    <div class="rel select-wrapper">
+                        <select name="titleColor" id="title-color">
+                            <option value="#ffffff">default</option>
+                            <!-- doplniť option iteration -->
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="body-color">Choose message color:</label>
+                    <div class="rel select-wrapper">
+                        <select name="bodyColor" id="body-color">
+                            <option value="#ffffff">default</option>
+                            <!-- doplniť option iteration -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </form>
+    <div class="create-post-bubble">
+        create post
+    </div>
+    <script src="/javascripts/postBubbleAction.js"></script>
+<% } %>
+    

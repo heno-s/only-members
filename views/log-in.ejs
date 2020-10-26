@@ -1,17 +1,12 @@
 <!-- niekedy možno doplniť front end validáciu -->
 <div class="log-in-aligner">
-<% if (typeof errors !== "undefined") { %>
+    
+<% if (locals.notFound) { %>
     <ul class="form-fail-messages-container">
-     <% errors.forEach(error => { %>
-        <li>
-            <%= error.param.toLowerCase() + error.msg %>
-        </li>
-        <% }) %>
-        <% if (locals.notFound) { %>
-         <li>user not found</li>
-        <% } %>
+        <li><%= msg %></li>
     </ul>
 <% } %>
+
     <div class="log-in-container">
         <form action="/auth/log-in" method="POST">
             <div class="form-group">

@@ -5,7 +5,7 @@ const Schema = require("mongoose").Schema;
 
 const postSchema = new Schema({
     title: String,
-    content: String,
+    body: String,
     edited: Date,
     user: {type: mongoose.Types.ObjectId, ref: "user", required: true},
     config: {type: mongoose.Types.ObjectId, ref: "member-config", required: true},

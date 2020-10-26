@@ -39,9 +39,9 @@ exports.register_get = (req,res,next) => {
 }
 
 exports.register_post =  [
-body(["userName", "firstName","password"], " field must not be empty").isLength({min: 1}).escape(),
-body(["userName","firstName","lastName"], " field cannot be longer than 25 characters").isLength({max: 25}).escape(),
-body("confirmPassword").escape(),
+body(["userName", "firstName","password"], " field must not be empty").trim().isLength({min: 1}).escape(),
+body(["userName","firstName","lastName"], " field cannot be longer than 25 characters").trim().isLength({max: 25}).escape(),
+body("confirmPassword").trim().escape(),
 // needed to make the function async for convenience of identifying whether username is already in the database
 async (req,res,next) =>{
     const errors = validationResult(req);
@@ -93,31 +93,41 @@ exports.logIn_get = (req,res,next) => {
     res.render("log-in", {title: "Log in"})
 }
 
-exports.logIn_post =[
-    body(["userName", "password"], " field must not be empty").isLength({min: 1}).escape(),
-    (req,res,next) => {
-        const errors = validationResult(req);
-        const {userName,password} = req.body;
-        if(!errors.isEmpty()){
-            res.render("log-in", {title: "Log in", inputs: {userName,password}, errors: errors.array()})
-        }else{
-            passport.authenticate("local", (err,user,info) =>{
-                if(err) return next(err);
-                else if (!user)
-                    return res.render("log-in", { title: "Log in",notFound: true, inputs: {userName,password}, errors: errors.array()})
-                else{
-                    req.logIn(user, function(err) {
-                        if (err) { return next(err); }
-                        return res.redirect("/");
-                        
-                      });
-                }
-            })(req,res,next);
+exports.logIn_post = (req,res,next) => {
+    const {userName,password} = req.body;
+    
+    passport.authenticate("local",
+
+    (err,user,info) =>{
+        if(err) return next(err);
+        else if (!user){
+            return res.render("log-in", { title: "Log in",notFound: true, inputs: {userName,password},msg: info.message})
         }
-    }
-]
+        else {
+            req.logIn(user, function(err) {
+                if (err) return next(err); 
+
+                UserStatistics.findOne({user})
+                    .then(statistics =>{
+                        statistics.lastLogInTime = new Date()
+                        return statistics.save()
+                    })
+                    .catch(next)
+                    return res.redirect("/");
+            });
+        }
+
+    })(req,res,next);
+}
 
 exports.logOut_post = (req,res,next) => {
+    
+    UserStatistics.findOne({user: req.user})
+        .then(statistics =>{
+            statistics.lastLogOutTime = new Date();
+            return statistics.save();
+        })
+        .catch(next);
   req.logout();
   res.redirect("/auth/log-in");
 }

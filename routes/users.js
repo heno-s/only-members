@@ -4,6 +4,7 @@ const router = express.Router();
 const usersController = require("../controllers/usersController");
 
 router.get("/", usersController.users_get);
+router.post("/create-post", usersController.createPost_post);
 router.get("/:profileId", usersController.user_get);
 
 router.post("/:profileId/admin-configuration", usersController.adminConfig_post);

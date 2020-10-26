@@ -11,20 +11,10 @@ const userSchema = new Schema({
 
     isMember: {type: Boolean, default: false},
     isAdmin: {type: Boolean, default: false},
-    lastLogInTime: Date,
-    lastLogOutTime: Date,
 }, {timestamps: true});
 
 userSchema.virtual("registration_date_formatted").get(function() {
     return moment(this.createdAt).format("DD.MM.YYYY");
-});
-
-userSchema.virtual("last_log_in_time_formatted").get(function() {
-    return moment(this.lastLogInTime).format("DD.MM.YYYY");
-});
-
-userSchema.virtual("last_log_out_time_formatted").get(function() {
-    return moment(this.lastLogOutTime).format("DD.MM.YYYY");
 });
 
 userSchema.virtual("fullName").get(function() {
