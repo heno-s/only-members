@@ -771,10 +771,22 @@ body {
 .list {
   max-width: 550px;
   margin: 0 auto;
-  height: calc(95vh - 70px - 30px);
+  height: calc(100vh - 70px - 30px);
   border-radius: 20px;
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid black;
+}
+
+@media (min-width: 700px) {
+  .list {
+    height: calc(100vh - 85px - 30px);
+  }
+}
+
+@media (min-width: 700px) {
+  .list {
+    height: calc(100vh - 100px - 30px);
+  }
 }
 
 .list__title {
@@ -973,8 +985,12 @@ body {
   }
 }
 
-.member {
+.members {
   color: #faff00;
+}
+
+.admins {
+  color: #004e8d;
 }
 
 .rel {

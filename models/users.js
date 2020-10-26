@@ -7,9 +7,10 @@ const userSchema = new Schema({
     firstName: {type: String, required: true},
     lastName: String,
     password: {type: String, required: true},
+    profilePictureUrl: {type: String, default: "/images/user/profile-picture.png"},
+
     isMember: {type: Boolean, default: false},
     isAdmin: {type: Boolean, default: false},
-    profilePicture: {type: String, default: "/images/user/profile-picture.png"},
     lastLogInTime: Date,
     lastLogOutTime: Date,
 }, {timestamps: true});

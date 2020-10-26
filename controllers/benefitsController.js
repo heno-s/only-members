@@ -16,7 +16,7 @@ exports.becomeMember_post = (req,res,next) => {
     if(req.body.password === MEMBER_KEY){
         const {user} = req;
         user.isMember = true;
-        Users.findByIdAndUpdate(user._id,user)
+        Users.findByIdAndUpdate(user._id,user,{useFindAndModify: false})
             .then(updatedUser =>{
                 res.redirect("/");
             })
@@ -27,7 +27,7 @@ exports.becomeMember_post = (req,res,next) => {
 }
 
 exports.becomeAnAdmin_get = (req,res,next) => {
-    Users.count({isAdmin: true})
+    Users.countDocuments({isAdmin: true})
         .then(numberOfAdmins =>{
             res.render("adminPassword", {title: "Become an admin", numberOfAdmins});
         })
@@ -38,17 +38,24 @@ exports.becomeAnAdmin_post = (req,res,next) => {
     if(req.body.password === ADMIN_KEY){
         const {user} = req;
         user.isAdmin = true;
+        console.log("exports.becomeAnAdmin_post -> user", user)
         new adminConfigs({user}).save()
-            .catch(next);
-
-        Users.findByIdAndUpdate(user._id,user)
-            .then(updatedUser =>{
+        .catch(next);
+        
+        // for whaever reason here does not work findByIdAndUpdate so
+        // i have to do it like this, find update myself and save
+        Users.findById(user._id)
+            .then(user =>{
+                user.isAdmin = true;
+                return user.save();
+            })
+            .then(product =>{
                 res.redirect("/");
             })
             .catch(next);
         
     } else{
-        Users.count({isAdmin: true})
+        Users.countDocuments({isAdmin: true})
         .then(numberOfAdmins =>{
             res.render("adminPassword", {title: "Become an admin", numberOfAdmins, failed: true});
         })

@@ -1,6 +1,6 @@
 .log-in-aligner {
   @include flexbox(center, center, column);
-  min-height: getMinVhHeight(md);
+  min-height: getScreenVhHeight(md);
   margin-top: -60px;
 }
 .log-in-container {
