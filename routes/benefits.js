@@ -5,8 +5,8 @@ const benefitsController = require("../controllers/benefitsController");
 
 router.get("/", benefitsController.benefits_get);
 
-router.get("/join-the-club", benefitsController.joinTheClub_get);
-router.post("/join-the-club", benefitsController.joinTheClub_post);
+router.get("/become-member", benefitsController.becomeMember_get);
+router.post("/become-member", benefitsController.becomeMember_post);
 
 router.get("/become-an-admin", benefitsController.becomeAnAdmin_get);
 router.post("/become-an-admin", benefitsController.becomeAnAdmin_post);

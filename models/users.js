@@ -5,10 +5,10 @@ const moment = require("moment");
 const userSchema = new Schema({
     userName: {type: String, required: true},
     firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
+    lastName: String,
     password: {type: String, required: true},
-    member: {type: Boolean, default: false},
-    admin: {type: Boolean, default: false},
+    isMember: {type: Boolean, default: false},
+    isAdmin: {type: Boolean, default: false},
     profilePicture: {type: String, default: "/images/user/profile-picture.png"},
     lastLogInTime: Date,
     lastLogOutTime: Date,

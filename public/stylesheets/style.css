@@ -960,6 +960,10 @@ body {
   margin-bottom: 1em !important;
 }
 
+.mt-1 {
+  margin-top: 1em !important;
+}
+
 @media (min-width: 430px) {
   .ml-1-sm {
     margin-left: 1em !important;

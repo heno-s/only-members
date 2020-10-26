@@ -5,6 +5,7 @@ const LocalStrategy = require("passport-local").Strategy;
 
 // models
 const Users = require("../models/users");
+const UserStatistics = require("../models/userStatistics");
 
 /* passport setup */
 passport.use(
@@ -41,7 +42,8 @@ exports.register_post =  [
 body(["userName", "firstName","password"], " field must not be empty").isLength({min: 1}).escape(),
 body(["userName","firstName","lastName"], " field cannot be longer than 25 characters").isLength({max: 25}).escape(),
 body("confirmPassword").escape(),
-(req,res,next) =>{
+// needed to make the function async for convenience of identifying whether username is already in the database
+async (req,res,next) =>{
     const errors = validationResult(req);
     // i have to do the match check on my own, because body.equals does not work
         if(req.body.password !== req.body.confirmPassword){
@@ -59,17 +61,28 @@ body("confirmPassword").escape(),
         lastName,
         password,
     });
-    if(!errors.isEmpty()){
-        return res.render("register", {title: "Registration",user, errors: errors.array()});
+
+    // made a helper variable for perfomance increase so i don't have to check for
+    // existence of user name in the DB if inputs didn't passed the validation
+    let userExists
+    if(!errors.isEmpty() || ( userExists = await Users.exists({userName}))){
+        return res.render("register", {title: "Registration",user,userExists, errors: errors.array()});
     }
+    
     else{
+        
         bcrypt.hash(password,10)
             .then(hashedPassword =>{
                 user.password = hashedPassword;
-                user.save((err,product) =>{
-                    if(err) return next(err);
-                    res.redirect("/auth/log-in");
-                })
+                user.save()
+                    .then(product =>{
+                        const userStatistics = new UserStatistics({user: product});
+                        return userStatistics.save()
+                    })
+                    .then(product =>{
+                        res.redirect("/auth/log-in");
+                    })
+                    .catch(next);
             })
             .catch(next)
     }
@@ -84,11 +97,22 @@ exports.logIn_post =[
     body(["userName", "password"], " field must not be empty").isLength({min: 1}).escape(),
     (req,res,next) => {
         const errors = validationResult(req);
-
+        const {userName,password} = req.body;
         if(!errors.isEmpty()){
-            res.render("log-in", {title: "Log in", errors: errors.array()})
+            res.render("log-in", {title: "Log in", inputs: {userName,password}, errors: errors.array()})
         }else{
-            passport.authenticate("local", {successRedirect: "/",failureRedirect: "/auth/log-in"})(req,res,next);
+            passport.authenticate("local", (err,user,info) =>{
+                if(err) return next(err);
+                else if (!user)
+                    return res.render("log-in", { title: "Log in",notFound: true, inputs: {userName,password}, errors: errors.array()})
+                else{
+                    req.logIn(user, function(err) {
+                        if (err) { return next(err); }
+                        return res.redirect("/");
+                        
+                      });
+                }
+            })(req,res,next);
         }
     }
 ]

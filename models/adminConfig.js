@@ -8,4 +8,4 @@ const adminConfigSchema = new Schema({
 });
 
 
-module.exports = mongoose.model("admin-config", postSchema);
+module.exports = mongoose.model("admin-config", adminConfigSchema);

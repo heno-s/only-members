@@ -10,12 +10,15 @@
         </ul>
     </div>
     <% if (typeof errors !== "undefined") { %>
-    <ul class="form-fail-messages-container">
-     <% errors.forEach(error => { %>
-        <li>
-            <%= error.param === "password" ? error.msg : error.param.toLowerCase() + error.msg %>
-        </li>
-        <% }) %>
+            <ul class="form-fail-messages-container">
+                <% errors.forEach(error => { %>
+                    <li>
+                        <%= error.param === "password" ? error.msg : error.param.toLowerCase() + error.msg %>
+                    </li>
+            <% }) %>
+            <% if (locals.userExists) { %>
+             <li>Username already taken</li>
+            <% } %>
     </ul>
     <% } %>
     <div class="register-form-container">

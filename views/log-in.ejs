@@ -7,17 +7,20 @@
             <%= error.param.toLowerCase() + error.msg %>
         </li>
         <% }) %>
+        <% if (locals.notFound) { %>
+         <li>user not found</li>
+        <% } %>
     </ul>
-    <% } %>
+<% } %>
     <div class="log-in-container">
         <form action="/auth/log-in" method="POST">
             <div class="form-group">
                 <label for="user-name">Username:</label>
-                <input  id="user-name" type="text" name="userName">
+                <input  id="user-name" type="text" name="userName" value="<%= locals.inputs ? inputs.userName : ""%>">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input id="password" type="password" name="password">
+                <input id="password" type="password" name="password" value="<%= locals.inputs ? inputs.password : "" %>">
             </div>
             <div class="text-center">
                 <button class="btn log-in-submit-btn">Log in</button>
