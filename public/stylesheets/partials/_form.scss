@@ -7,6 +7,33 @@
   margin-top: 0.3em;
 }
 
-.form-text-invalid {
+.form-fail-messages-container {
+  background-color: #dee78a;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 1.5em;
+  padding: 1em 2em;
+  max-width: 500px;
+  li {
+    color: getColor(form-fail-message);
+    list-style-type: disc;
+    margin-bottom: 0.7em;
+  }
+  :last-child {
+    margin: 0;
+  }
+}
+
+.form-tested {
+  :invalid {
+    box-shadow: 0 0 10px 3px red;
+  }
+}
+
+.form-text-fail {
   color: #ffb800;
+}
+
+.form-text-success {
+  color: #12924f;
 }

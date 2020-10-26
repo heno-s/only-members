@@ -638,8 +638,36 @@ body {
   margin-top: 0.3em;
 }
 
-.form-text-invalid {
+.form-fail-messages-container {
+  background-color: #dee78a;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 1.5em;
+  padding: 1em 2em;
+  max-width: 500px;
+}
+
+.form-fail-messages-container li {
+  color: #db5858;
+  list-style-type: disc;
+  margin-bottom: 0.7em;
+}
+
+.form-fail-messages-container :last-child {
+  margin: 0;
+}
+
+.form-tested :invalid {
+  -webkit-box-shadow: 0 0 10px 3px red;
+          box-shadow: 0 0 10px 3px red;
+}
+
+.form-text-fail {
   color: #ffb800;
+}
+
+.form-text-success {
+  color: #12924f;
 }
 
 .register-introduction {

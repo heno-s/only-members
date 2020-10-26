@@ -9,34 +9,106 @@
             <li>- become an <strong class="text-uppercase">admin</strong></li>
         </ul>
     </div>
+    <% if (typeof errors !== "undefined") { %>
+    <ul class="form-fail-messages-container">
+     <% errors.forEach(error => { %>
+        <li>
+            <%= error.param === "password" ? error.msg : error.param.toLowerCase() + error.msg %>
+        </li>
+        <% }) %>
+    </ul>
+    <% } %>
     <div class="register-form-container">
-        <!-- doplniť action -->
         <!-- doplniť paragrafy -->
-        <!-- doplniť class otestovaná forma -->
-        <form action="" method="POST">
+        <form action="/auth/register" method="POST" class="<%= typeof errors !== "undefined" ? "form-tested" : "" %>">
             <div class="form-group">
-                <label for="username">Username:</label><input required maxlength="25" type="text">
-                <p class="form-text">test</p>
+                <label for="user-name">Username:</label>
+                <input id="user-name" required maxlength="25" type="text" name="userName" value="<%= locals.user ? user.userName : "" %>">
             </div>
             <div class="form-group">
-                <label for="first-name">First name:</label><input required maxlength="25" type="text">
-                <p class="form-text">test</p>
+                <label for="first-name">First name:</label>
+                <input id="first-name" required maxlength="25" type="text" name="firstName" value="<%= locals.user ? user.firstName : "" %>">
             </div>
             <div class="form-group">
-                <label for="last-name">Last name:</label><input  maxlength="25" type="text">
-                <p class="form-text">test</p>
+                <label for="last-name">Last name:</label>
+                <input id="last-name" maxlength="25" type="text" name="lastName" value="<%= locals.user ? user.lastName : "" %>">
             </div>
             <div class="form-group">
-                <label for="password">Password:</label><input required type="password">
-                <p class="form-text">test</p>
+                <label for="password">Password:</label>
+                <input id="password" required type="password" name="password" value="<%= locals.user ? user.password : "" %>">
             </div>
             <div class="form-group">
-                <label for="confirm-password">Confirm password:</label><input required type="password">
-                <p class="form-text">test</p>
+                <label for="confirm-password">Confirm password:</label>
+                <input id="confirm-password" type="password" name="confirmPassword">
             </div>
             <div class="text-center">
-                <button class="btn">Register</button>
+                <button id="submit-btn" class="btn">Register</button>
             </div>
         </form>
     </div>
 </div>
+
+
+<script>
+    
+const submitBtn = document.querySelector("#submit-btn");
+const form = document.querySelector("form");
+// looking for this element just so i could be able to put fail messages in right place
+const registerIntroduction = document.querySelector(".register-introduction"); 
+
+submitBtn.addEventListener("click", event =>{
+    form.classList.add("form-tested");
+
+    // to keep deleting old messages
+    let messageFailContainer = document.querySelector(".form-fail-messages-container");
+    if(messageFailContainer)
+        messageFailContainer.remove();
+
+    // creating new messages
+    messageFailContainer = document.createElement("ul");
+    messageFailContainer.classList.add("form-fail-messages-container");
+
+    const invalidInputs = document.querySelectorAll("input:invalid");
+    invalidInputs.forEach(invalidInput =>{
+        const messageLi = document.createElement("li");
+        if(invalidInput.validity.valueMissing){
+            messageLi.textContent = invalidInput.getAttribute("name").toLowerCase() + " field must not be empty";
+        }
+        else if(invalidInput.validity.tooLong){
+            messageLi.textContent = invalidInput.getAttribute("name").toLowerCase() + ` field cannot be longer than ${invalidInput.maxLength} characters`;
+        }
+        // eliminating any other cases, that i do not cover and they have no message
+        if(messageLi.textContent)
+            messageFailContainer.appendChild(messageLi);
+    })
+    
+    // custom password match check
+    if(!passwordMatch()){
+        const messageLi = document.createElement("li");
+        messageLi.textContent = "passwords do not match";
+        messageFailContainer.appendChild(messageLi);
+    }
+    
+    // this check must be done, otherwise it will get appended even if there are no error messages
+    // and it flickers for a second while redirecting, because of padding and background color
+    if(messageFailContainer.children.length !== 0)
+        registerIntroduction.after(messageFailContainer);
+
+});
+
+
+function passwordMatch(passwordId="password",confirmPasswordId = "confirm-password"){
+    let password = document.getElementById(passwordId);
+    let confirmPassword = document.getElementById(confirmPasswordId);
+    if(password.value === confirmPassword.value){
+        // reset invalidity from input
+        confirmPassword.setCustomValidity("");
+        return true
+    }else{
+        // set invalidity to input
+        confirmPassword.setCustomValidity("passwords do not match");
+        return false;
+    }
+}
+
+</script>
