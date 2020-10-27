@@ -25,7 +25,7 @@
     <% console.log(allPosts.length) %> 
     <div class="all-posts flex-2">
     <% if (allPosts.length === 0) { %>
-        <p>No posts</p>
+        <h1 class="text-center">No posts</h1>
     <% } %>
     <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
         <% const post = allPosts[index] %>

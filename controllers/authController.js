@@ -106,14 +106,14 @@ exports.logIn_post = (req,res,next) => {
         else {
             req.logIn(user, function(err) {
                 if (err) return next(err); 
-                UserStatistics.findById(user._id)
-                    .then(statistic =>{
-                        console.log("exports.logIn_post -> statistic", statistic)
+                UserStatistics.findById(user.statistics)
+                    .then(statistics =>{
+                        statistics.logInTimes ++;
+                        statistics.lastLogInTime = new Date();
+                        return statistics.save();
                     })
-
-                UserStatistics.findByIdAndUpdate(user._id,{lastLogInTime: new Date()},{useFindAndModify: false})
-                    .catch(next)
-                    return res.redirect("/");
+                    .catch(next);
+                return res.redirect("/");
             });
         }
 
@@ -122,7 +122,7 @@ exports.logIn_post = (req,res,next) => {
 
 exports.logOut_post = (req,res,next) => {
     
-    UserStatistics.findByIdAndUpdate(req.user,{lastLogOutTime: new Date()},{useFindAndModify: false})
+    UserStatistics.findByIdAndUpdate(req.user.statistics,{lastLogOutTime: new Date()},{useFindAndModify: false})
         .catch(next);
   req.logout();
   res.redirect("/auth/log-in");
