@@ -1,7 +1,3 @@
-const mongoose = require("mongoose");
-
-// models
-const Users = require("../models/users");
 const Posts = require("../models/post");
 
 exports.index_get = (req,res,next) => {

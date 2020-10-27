@@ -35,9 +35,6 @@ mongoose.connect(MONGODB_URI,{useUnifiedTopology: true, useNewUrlParser: true});
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-
-
-
 passport.serializeUser((user,done) =>{
   done(null,user._id);
 });
@@ -138,7 +135,7 @@ function statistics(req,res,next){
     })
     .catch(next)
     if(req.user && req.method === "GET"){
-      UserStatistics.findOne({user: req.user})
+      UserStatistics.findById(req.user.statistics._id)
         .then(userStatistics =>{
           userStatistics.visitedPages ++;
           return userStatistics.save();

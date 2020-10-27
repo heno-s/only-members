@@ -3,17 +3,17 @@
         <div class="profile mx-auto">
         <img src="/images/users/profile-picture.png" alt="profile pic">
         <div class="profile__body">
-        <h1>Username: <span>kako</span></h1>
-        <h1>Full name: <span></span></h1>
-        <h1>Last logged in: <span></span></h1>
-        <h1>Registered: <span></span></h1>
+        <h1>Username: <span><%= user.userName %></span></h1>
+        <h1>Full name: <span><%= user.fullName %></span></h1>
+        <h1>Last logged in: <span><%= statistics.last_log_in_time_formatted %></span></h1>
+        <h1>Registered: <span><%= statistics.registration_date_formatted %></span></h1>
         </div>
         </div>
     </div>
     
     <div class="fake-profile">
         <div class="text-center">
-            <img src="/images/users/profile-picture.png" alt="profile pic">
+            <img src="<%= user.profilePictureUrl %>" alt="profile pic">
         </div>
         <div>
         <h1>Username:</h1>
@@ -22,168 +22,55 @@
         <h1>Registered:</h1>
         </div>
     </div>
-    
+    <% console.log(allPosts.length) %> 
     <div class="all-posts flex-2">
-        <div class="post">
-            <div class="post__header">
-                    <!-- diplniť href -->
-                <a href="/doplniť" class="post__profile--trigger">
-                    <!-- diplniť img src -->
-                    <img class="post__profile-image" src="/images/users/profile-picture.png" alt="profile picture">
-                    <div class="post__profile-info">
-                        <h3 class="post__profile-name">
-                            <!-- doplniť -->
-                            janko12
-                        </h3>
-                        <h6 class="post__profile-rank member">
-                            <!-- doplniť -->
-                            member
-                        </h6>
-                    </div>
-                </a>
-                <h2 class="post__title">
-                            <!-- doplniť -->
-                    example title example title example title example title example title
-                </h2>
-            </div>
-            <p class="post__body">
-                            <!-- doplniť -->
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in?
-            </p>
-                            <!-- doplniť if me, then edit or delete -->
-            <div class="post__footer">
-                <p class="">
-                            <!-- doplniť -->
-                    posted: 
+    <% if (allPosts.length === 0) { %>
+        <p>No posts</p>
+    <% } %>
+    <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
+        <% const post = allPosts[index] %>
+            <div class="post">
+                <div class="post__header">
+                    <a href="<%= user.url %>" class="post__profile--trigger">
+                        <img class="post__profile-image" src="<%= user.profilePictureUrl %>" alt="profile picture">
+                        <div class="post__profile-info">
+                            <h3 class="post__profile-name">
+                                <%= user.userName %>
+                            </h3>
+                            <h6 class="post__profile-rank member <%= user.highestRank ? user.highestRank+"s-color" : ""%>">
+                                <%= user.highestRank %>
+                            </h6>
+                        </div>
+                    </a>
+                    <h2 class="post__title">
+                        <%= post.title %>
+                    </h2>
+                </div>
+                <p class="post__body">
+                        <%= post.body %>
                 </p>
-                            <!-- doplniť if edited a title -->
-                <p class="" title="time">
-        edited
-                </p>
-                <button style="margin-top: 10px;" class="btn">edit</button>
-                <button class="btn">delete</button>
+                <div class="post__footer">
+                    <p class="mb-05">
+                        posted: <%= post.created_at_formatted %>
+                    </p>
+                    <p>
+                        <%= post.edited ? `edited: ${post.edited_at_formatted}` : ""%>
+                    </p>
+                    <% if (currentUser._id.toString() === user._id.toString() || currentUser.isAdmin) { %>
+                        <div class="mt-1">
+                        <% if (currentUser._id.toString() === user._id.toString()) { %>
+                                <form action="<%= post.url %>/update" method="POST" class="d-inline-block">
+                                    <button class="btn">edit</button>
+                                </form>
+                        <% } %>
+                                <form action="<%= post.url %>/delete" method="POST" class="d-inline-block">
+                                    <button class="btn">delete</button>
+                                </form>
+                            </div>
+                    <% } %>
+                </div>
             </div>
-        </div>
-        <div class="post">
-            <div class="post__header">
-                    <!-- diplniť href -->
-                <a href="/doplniť" class="post__profile--trigger">
-                    <!-- diplniť img src -->
-                    <img class="post__profile-image" src="/images/users/profile-picture.png" alt="profile picture">
-                    <div class="post__profile-info">
-                        <h3 class="post__profile-name">
-                            <!-- doplniť -->
-                            janko12
-                        </h3>
-                        <h6 class="post__profile-rank member">
-                            <!-- doplniť -->
-                            member
-                        </h6>
-                    </div>
-                </a>
-                <h2 class="post__title">
-                            <!-- doplniť -->
-                    example title example title example title example title example title
-                </h2>
-            </div>
-            <p class="post__body">
-                            <!-- doplniť -->
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in?
-            </p>
-                            <!-- doplniť if me, then edit or delete -->
-            <div class="post__footer">
-                <p class="">
-                            <!-- doplniť -->
-                    posted: 
-                </p>
-                            <!-- doplniť if edited a title -->
-                <p class="" title="time">
-        edited
-                </p>
-                <button style="margin-top: 10px;" class="btn">edit</button>
-                <button class="btn">delete</button>
-            </div>
-        </div>
-        <div class="post">
-            <div class="post__header">
-                    <!-- diplniť href -->
-                <a href="/doplniť" class="post__profile--trigger">
-                    <!-- diplniť img src -->
-                    <img class="post__profile-image" src="/images/users/profile-picture.png" alt="profile picture">
-                    <div class="post__profile-info">
-                        <h3 class="post__profile-name">
-                            <!-- doplniť -->
-                            janko12
-                        </h3>
-                        <h6 class="post__profile-rank member">
-                            <!-- doplniť -->
-                            member
-                        </h6>
-                    </div>
-                </a>
-                <h2 class="post__title">
-                            <!-- doplniť -->
-                    example title example title example title example title example title
-                </h2>
-            </div>
-            <p class="post__body">
-                            <!-- doplniť -->
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in?
-            </p>
-                            <!-- doplniť if me, then edit or delete -->
-            <div class="post__footer">
-                <p class="">
-                            <!-- doplniť -->
-                    posted: 
-                </p>
-                            <!-- doplniť if edited a title -->
-                <p class="" title="time">
-        edited
-                </p>
-                <button style="margin-top: 10px;" class="btn">edit</button>
-                <button class="btn">delete</button>
-            </div>
-        </div>
-        <div class="post">
-            <div class="post__header">
-                    <!-- diplniť href -->
-                <a href="/doplniť" class="post__profile--trigger">
-                    <!-- diplniť img src -->
-                    <img class="post__profile-image" src="/images/users/profile-picture.png" alt="profile picture">
-                    <div class="post__profile-info">
-                        <h3 class="post__profile-name">
-                            <!-- doplniť -->
-                            janko12
-                        </h3>
-                        <h6 class="post__profile-rank member">
-                            <!-- doplniť -->
-                            member
-                        </h6>
-                    </div>
-                </a>
-                <h2 class="post__title">
-                            <!-- doplniť -->
-                    example title example title example title example title example title
-                </h2>
-            </div>
-            <p class="post__body">
-                            <!-- doplniť -->
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, in?
-            </p>
-                            <!-- doplniť if me, then edit or delete -->
-            <div class="post__footer">
-                <p class="">
-                            <!-- doplniť -->
-                    posted: 
-                </p>
-                            <!-- doplniť if edited a title -->
-                <p class="" title="time">
-        edited
-                </p>
-                <button style="margin-top: 10px;" class="btn">edit</button>
-                <button class="btn">delete</button>
-            </div>
-        </div>
+    <% } %>
     </div>
 </div>
 

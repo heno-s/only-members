@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const Schema = require("mongoose").Schema;
 
@@ -9,11 +10,14 @@ const userStatisticsSchema = new Schema({
     memberAttempts: {type: Number, default: 0},
     lastLogInTime: Date,
     lastLogOutTime: Date,
-    user: {type: mongoose.Types.ObjectId, ref: "user", required: true},
+}, {timestamps: true});
+
+userStatisticsSchema.virtual("registration_date_formatted").get(function() {
+    return moment(this.createdAt).format("DD.MM.YYYY");
 });
 
 userStatisticsSchema.virtual("last_log_in_time_formatted").get(function() {
-    return moment(this.lastLogInTime).format("DD.MM.YYYY");
+    return moment(this.lastLogInTime).format("DD.MM.YYYY, h:mm:ss a");
 });
 
 userStatisticsSchema.virtual("last_log_out_time_formatted").get(function() {

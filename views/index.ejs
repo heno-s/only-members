@@ -11,8 +11,8 @@
                     <h3 class="post__profile-name">
                         <%= user.userName %>
                     </h3>
-                    <h6 class="post__profile-rank member <%= user.isAdmin ? "admins-color" : user.isMember ? "members-color" : "" %>">
-                        <%= user.isAdmin ? "admin" : user.isMember ? "member" : "" %>
+                    <h6 class="post__profile-rank member <%= user.highestRank ? user.highestRank + "s-color" : ""%>">
+                        <%= user.highestRank %>
                     </h6>
                 </div>
             </a>
@@ -61,6 +61,9 @@
                             <!-- doplniť option iteration -->
                             <option value="#ffffff">default</option>
                             <option value="#000000">black</option>
+                            <option value="#faff00">member color</option>
+                            <option value="#004e8d">admin color</option>
+                            <option value="#c4c4c4c4">light grey</option>
                         </select>
                     </div>
                 </div>
@@ -71,6 +74,9 @@
                             <!-- doplniť option iteration -->
                             <option value="#ffffff">default</option>
                             <option value="#000000">black</option>
+                            <option value="#faff00">member color</option>
+                            <option value="#004e8d">admin color</option>
+                            <option value="#c4c4c4c4">light grey</option>
                         </select>
                     </div>
                 </div>

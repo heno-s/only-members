@@ -70,16 +70,16 @@ async (req,res,next) =>{
     }
     
     else{
-        
+        const userStatistics = new UserStatistics({user});
         bcrypt.hash(password,10)
             .then(hashedPassword =>{
                 user.password = hashedPassword;
-                user.save()
-                    .then(product =>{
-                        const userStatistics = new UserStatistics({user: product});
-                        return userStatistics.save()
-                    })
-                    .then(product =>{
+                user.statistics = userStatistics;
+                Promise.all([
+                    userStatistics.save(),
+                    user.save(),
+                ])
+                    .then(products =>{
                         res.redirect("/auth/log-in");
                     })
                     .catch(next);
@@ -106,8 +106,12 @@ exports.logIn_post = (req,res,next) => {
         else {
             req.logIn(user, function(err) {
                 if (err) return next(err); 
+                UserStatistics.findById(user._id)
+                    .then(statistic =>{
+                        console.log("exports.logIn_post -> statistic", statistic)
+                    })
 
-                UserStatistics.findOneAndUpdate({user},{lastLogInTime: new Date()},{useFindAndModify: false})
+                UserStatistics.findByIdAndUpdate(user._id,{lastLogInTime: new Date()},{useFindAndModify: false})
                     .catch(next)
                     return res.redirect("/");
             });
@@ -118,7 +122,7 @@ exports.logIn_post = (req,res,next) => {
 
 exports.logOut_post = (req,res,next) => {
     
-    UserStatistics.findOneAndUpdate({user: req.user},{lastLogOutTime: new Date()},{useFindAndModify: false})
+    UserStatistics.findByIdAndUpdate(req.user,{lastLogOutTime: new Date()},{useFindAndModify: false})
         .catch(next);
   req.logout();
   res.redirect("/auth/log-in");

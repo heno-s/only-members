@@ -966,6 +966,10 @@ body {
   margin-left: 1em !important;
 }
 
+.mb-05 {
+  margin-bottom: 0.5em !important;
+}
+
 .mb-1 {
   margin-bottom: 1em !important;
 }
@@ -1056,5 +1060,9 @@ body {
   -webkit-box-flex: 3 !important;
       -ms-flex: 3 !important;
           flex: 3 !important;
+}
+
+.d-inline-block {
+  display: inline-block;
 }
 /*# sourceMappingURL=style.css.map */

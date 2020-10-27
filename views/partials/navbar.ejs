@@ -6,7 +6,7 @@
             <ul class="nav-sm-flex">
                 <li><a href="/">Home</a></li>
                 <% if (currentUser) { %>
-                <li class="ml-auto-sm order-3"><a href="/users/<%= currentUser._id %>">Me</a></li>
+                <li class="ml-auto-sm order-3"><a href="<%= currentUser.url %>">Me</a></li>
                 <li class="ml-1-sm order-4"><a href="/auth/log-out">Log out</a></li> 
                 <% } else {%>
                 <li class="ml-auto-sm order-3"><a href="/auth/register">Register</a></li>

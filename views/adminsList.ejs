@@ -1,8 +1,9 @@
 <div class="list">
     <h1 class="list__title admins-color">Admins</h1>
     <ul class="list__body">
-        <% adminUsers.forEach(adminUser => { %>
-            <li><a href="#"><img src="<%= adminUser.profilePictureUrl %> " alt="hey"><span><%= adminUser.userName %></span></a></li>         
-        <% }) %>
+        <% for( let index = adminUsers.length - 1; index >= 0; index-- ) { %>
+            <% const adminUser = adminUsers[index] %>
+            <li><a href="<%= adminUser.url %>"><img src="<%= adminUser.profilePictureUrl %> " alt="profile picture "><span><%= adminUser.userName %></span></a></li>         
+        <% } %>
     </ul>
 </div>

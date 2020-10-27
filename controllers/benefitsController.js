@@ -1,6 +1,6 @@
 const { ADMIN_KEY, MEMBER_KEY } = process.env;
 const Users = require("../models/users");
-const adminConfigs = require("../models/adminConfig");
+const AdminConfigs = require("../models/adminConfig");
 
 exports.benefits_get = (req,res,next) => {
     res.redirect("/");
@@ -15,9 +15,10 @@ exports.becomeMember_post = (req,res,next) => {
     if(req.body.password === MEMBER_KEY){
         const {user} = req;
         user.isMember = true;
+        user.highestRank = user.isAdmin ? "admin" : "member";
         Users.findByIdAndUpdate(user._id,user,{useFindAndModify: false})
             .then(updatedUser =>{
-                res.redirect("/");
+                res.redirect("/boards/club-members");
             })
             .catch(next);
     }else{
@@ -37,13 +38,13 @@ exports.becomeAnAdmin_post = (req,res,next) => {
     if(req.body.password === ADMIN_KEY){
         const {user} = req;
         user.isAdmin = true;
-        console.log("exports.becomeAnAdmin_post -> user", user)
-        new adminConfigs({user}).save()
+        user.highestRank = "admin";
+        new AdminConfigs({user}).save()
         .catch(next);
         
         Users.findByIdAndUpdate(user._id,{isAdmin: true},{useFindAndModify: false})
             .then(product =>{
-                res.redirect("/");
+                res.redirect("/boards/admins");
             })
             .catch(next);
         

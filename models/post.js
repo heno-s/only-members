@@ -16,7 +16,7 @@ postSchema.virtual("created_at_formatted").get(function(){
 });
 
 postSchema.virtual("edited_at_formatted").get(function(){
-    return moment(this.updatedAt).format("DD.MM.YYYY, HH:MM:SS");
+    return moment(this.updatedAt).format("DD.MM.YYYY, h:mm:ss a");
 });
 
 postSchema.virtual("url").get(function(){

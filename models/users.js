@@ -7,15 +7,13 @@ const userSchema = new Schema({
     firstName: {type: String, required: true},
     lastName: String,
     password: {type: String, required: true},
-    profilePictureUrl: {type: String, default: "/images/user/profile-picture.png"},
+    profilePictureUrl: {type: String, default: "/images/users/profile-picture.png"},
 
     isMember: {type: Boolean, default: false},
     isAdmin: {type: Boolean, default: false},
+    highestRank: String,
+    statistics: {type: mongoose.Types.ObjectId, ref: "user-statistics", required: true}
 }, {timestamps: true});
-
-userSchema.virtual("registration_date_formatted").get(function() {
-    return moment(this.createdAt).format("DD.MM.YYYY");
-});
 
 userSchema.virtual("fullName").get(function() {
     return this.firstName + " " + this.lastName;
