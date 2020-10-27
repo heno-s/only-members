@@ -56,17 +56,19 @@
                     <p>
                         <%= post.edited ? `edited: ${post.edited_at_formatted}` : ""%>
                     </p>
-                    <% if (currentUser._id.toString() === user._id.toString() || currentUser.isAdmin) { %>
+                    <% if (currentUser) { %>
                         <div class="mt-1">
-                        <% if (currentUser._id.toString() === user._id.toString()) { %>
+                        <% if (currentUser._id.toString() === user._id.toString() || currentUser.isAdmin) { %>
+                            <% if (currentUser._id.toString() === user._id.toString()) { %>
                                 <form action="<%= post.url %>/update" method="POST" class="d-inline-block">
                                     <button class="btn">edit</button>
                                 </form>
-                        <% } %>
+                            <% } %>
                                 <form action="<%= post.url %>/delete" method="POST" class="d-inline-block">
                                     <button class="btn">delete</button>
                                 </form>
-                            </div>
+                        <% } %>
+                        </div>
                     <% } %>
                 </div>
             </div>
