@@ -1,7 +1,6 @@
 const { ADMIN_KEY, MEMBER_KEY } = process.env;
 const Users = require("../models/users");
 const adminConfigs = require("../models/adminConfig");
-const memberConfigs = require("../models/memberConfig");
 
 exports.benefits_get = (req,res,next) => {
     res.redirect("/");
@@ -42,13 +41,7 @@ exports.becomeAnAdmin_post = (req,res,next) => {
         new adminConfigs({user}).save()
         .catch(next);
         
-        // for whaever reason here does not work findByIdAndUpdate so
-        // i have to do it like this, find update myself and save
-        Users.findById(user._id)
-            .then(user =>{
-                user.isAdmin = true;
-                return user.save();
-            })
+        Users.findByIdAndUpdate(user._id,{isAdmin: true},{useFindAndModify: false})
             .then(product =>{
                 res.redirect("/");
             })

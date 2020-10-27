@@ -412,13 +412,11 @@ body {
 .post__footer {
   font-family: serif;
   font-size: 0.8rem;
-  padding-left: 1em;
 }
 
 @media (min-width: 700px) {
   .post__footer {
     font-size: 0.9rem;
-    padding-left: 1.35em;
   }
 }
 
@@ -985,11 +983,11 @@ body {
   }
 }
 
-.members {
+.members-color {
   color: #faff00;
 }
 
-.admins {
+.admins-color {
   color: #004e8d;
 }
 

@@ -15,12 +15,13 @@ require("dotenv").config();
 // models
 const Users = require("./models/users");
 const AppStatistics = require("./models/appStatistics");
+const UserStatistics = require("./models/userStatistics");
 
 // environment variables
 const {MONGODB_URI, SECRET_KEY} = process.env;
 
 // standard variables
-const adminLimit = 5;
+const adminsLimit = 10;
 
 // router variables
 const indexRouter = require("./routes/index");
@@ -79,36 +80,12 @@ app.use((req,res,next) =>{
   res.header("Content-Security-Policy", "*");
   next();
 })
-// global res.locals variables
-app.use((req,res,next) =>{
-  res.locals.adminLimit = adminLimit;
-  next();
-});
 
-app.use((req,res,next) =>{
-  res.locals.currentUser = req.user;
-  next();
-});
+// custom app.js middleware functions
+app.use(setGlobalVariables);
+app.use(statistics);
 
-app.use((req,res,next) =>{
-  AppStatistics.findOne()
-    .then(statistics =>{
-      if(req.method == "GET")
-        statistics.visitedPages ++;
-      else if(req.method === "POST")
-        statistics.pageSubmissions ++;
-      else
-        return;
-      statistics.save((err,product) =>{
-        if(err) return next(err);
-      });
-    })
-    .catch(next)
-
-    next();
-});
-
-// using routers
+// routers
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
@@ -131,4 +108,44 @@ app.use(function(err, req, res, next) {
   res.render("error", {layout: false});
 });
 
+
 module.exports = app;
+
+
+// custom middleware functions
+
+function setGlobalVariables(req,res,next){
+  res.locals.adminsLimit = adminsLimit;
+  res.locals.currentUser = req.user;
+  next();
+}
+
+function statistics(req,res,next){
+  // excluding public stylesheets images and javascripts as they are automatically being asked for by the
+  // server and not by the user itself
+  if(req.url.startsWith("/images") || req.url.startsWith("/stylesheets") || req.url.startsWith("/javascripts")){
+    return next();
+  }
+  AppStatistics.findOne()
+  .then(statistics =>{
+      if(req.method == "GET")
+        statistics.visitedPages ++;
+      else if(req.method === "POST")
+        statistics.pageSubmissions ++;
+      else
+        return;
+      return statistics.save();
+    })
+    .catch(next)
+    if(req.user && req.method === "GET"){
+      UserStatistics.findOne({user: req.user})
+        .then(userStatistics =>{
+          userStatistics.visitedPages ++;
+          return userStatistics.save();
+        })
+        .catch(next);
+    }
+    
+    next();
+}
+

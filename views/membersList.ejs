@@ -1,8 +1,8 @@
 <div class="list">
-    <h1 class="list__title members">Members</h1>
+    <h1 class="list__title members-color">Members</h1>
     <ul class="list__body">
         <% memberUsers.forEach(memberUser => { %>
-            <li><a href="#"><img src="<%= memberUser.profilePictureUrl %> " alt="hey"><span><%= memberUser.userName %></span></a></li>         
+            <li><a href="<%= memberUser.url %>"><img src="<%= memberUser.profilePictureUrl %> " alt="hey"><span><%= memberUser.userName %></span></a></li>         
         <% }) %>
     </ul>
 </div>

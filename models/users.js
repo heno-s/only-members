@@ -22,7 +22,7 @@ userSchema.virtual("fullName").get(function() {
 });
 
 userSchema.virtual("url").get(function(){
-    return `/user/${this._id}`;
+    return `/users/${this._id}`;
 });
 
 module.exports = mongoose.model("user", userSchema);

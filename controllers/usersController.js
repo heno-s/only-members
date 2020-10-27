@@ -1,11 +1,12 @@
+// doplniť konfigurácie (drop shadow atď...) pre post
 const { body, validationResult } = require("express-validator");
 
 // models
 const Posts = require("../models/post");
-const MemberConfigs = require("../models/memberConfig");
+const PostConfigs = require("../models/postConfig");
+
 
 exports.users_get = (req,res,next) => {
-    return res.render("profile", {title: "profile"});
     res.redirect("/");
 }
 exports.createPost_post = [
@@ -17,19 +18,21 @@ body(["postTitle","postBody","titleColor","contentColor"]).trim().escape(),
         body: postBody,
         user: req.user,
     });
-    let memberConfig;
+    let postConfig;
     if(req.user.isMember){
-        memberConfig = new MemberConfigs({
+        postConfig = new PostConfigs({
             titleColor,
             bodyColor,
         })
     }
     else{
-        memberConfig = new MemberConfigs();
+        postConfig = new PostConfigs();
     }
-    console.log("post", post)
-    post.config = memberConfig;
-    post.save()
+    post.config = postConfig;
+    Promise.all([
+        postConfig.save(),
+        post.save(),
+    ])
         .then(product =>{
             res.redirect("/");
         })
@@ -37,21 +40,31 @@ body(["postTitle","postBody","titleColor","contentColor"]).trim().escape(),
 }]
 
 exports.user_get = (req,res,next) => {
-
+res.send("user");
 }
 
 exports.adminConfig_post = (req,res,next) => {
-    
+    res.send("configs");
 }
 
 exports.updatePost_get = (req,res,next) => {
-
+    res.send("update get");
 }
 
 exports.updatePost_post = (req,res,next) => {
-
+    res.send("update post");
 }
 
 exports.deletePost_post = (req,res,next) => {
-
+    const {profileId,postId} = req.params;
+    
+    if(req.user._id !== profileId && !req.user.isAdmin){
+        res.send("unauthorized");
+    }else{
+        Posts.findByIdAndRemove(postId,{useFindAndModify: false})
+            .then(product =>{
+                res.redirect("/");
+            })
+            .catch(next);
+    }
 }

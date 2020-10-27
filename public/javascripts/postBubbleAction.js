@@ -36,7 +36,7 @@ config.addEventListener("click", event =>{
     const option = event.target;
     if(option.parentElement.id.includes("title-color"))
         title.style.color = option.value;
-    else if(option.parentElement.id.includes("content-color")){
+    else if(option.parentElement.id.includes("body-color")){
         content.style.color = option.value;
     }
 })

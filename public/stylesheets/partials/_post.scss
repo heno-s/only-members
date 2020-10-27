@@ -94,10 +94,8 @@
   &__footer {
     font-family: serif;
     font-size: 0.8rem;
-    padding-left: 1em;
     @media (min-width: getBreakPoint(md)) {
       font-size: 0.9rem;
-      padding-left: 1.35em;
     }
   }
 }

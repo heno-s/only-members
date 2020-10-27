@@ -6,21 +6,21 @@ const Schema = require("mongoose").Schema;
 const postSchema = new Schema({
     title: String,
     body: String,
-    edited: Date,
+    edited: Boolean,
     user: {type: mongoose.Types.ObjectId, ref: "user", required: true},
-    config: {type: mongoose.Types.ObjectId, ref: "member-config", required: true},
+    config: {type: mongoose.Types.ObjectId, ref: "post-config", required: true},
 },{timestamps: true});
 
 postSchema.virtual("created_at_formatted").get(function(){
-    return moment(this.createdAt).format("DD.MM.YYYY");
+    return moment(this.createdAt).format("DD.MM.YYYY, h:mm:ss a");
 });
 
 postSchema.virtual("edited_at_formatted").get(function(){
-    return moment(this.createdAt).format("DD.MM.YYYY");
+    return moment(this.updatedAt).format("DD.MM.YYYY, HH:MM:SS");
 });
 
 postSchema.virtual("url").get(function(){
-    return `/user/${this.user}/posts/${this._id}`;
+    return `/users/${this.user}/posts/${this._id}`;
 });
 
 module.exports = mongoose.model("post", postSchema);

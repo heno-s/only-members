@@ -107,11 +107,7 @@ exports.logIn_post = (req,res,next) => {
             req.logIn(user, function(err) {
                 if (err) return next(err); 
 
-                UserStatistics.findOne({user})
-                    .then(statistics =>{
-                        statistics.lastLogInTime = new Date()
-                        return statistics.save()
-                    })
+                UserStatistics.findOneAndUpdate({user},{lastLogInTime: new Date()},{useFindAndModify: false})
                     .catch(next)
                     return res.redirect("/");
             });
@@ -122,11 +118,7 @@ exports.logIn_post = (req,res,next) => {
 
 exports.logOut_post = (req,res,next) => {
     
-    UserStatistics.findOne({user: req.user})
-        .then(statistics =>{
-            statistics.lastLogOutTime = new Date();
-            return statistics.save();
-        })
+    UserStatistics.findOneAndUpdate({user: req.user},{lastLogOutTime: new Date()},{useFindAndModify: false})
         .catch(next);
   req.logout();
   res.redirect("/auth/log-in");

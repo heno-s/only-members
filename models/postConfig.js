@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = require("mongoose").Schema;
 
-const memberConfigSchema = new Schema({
+const postConfigSchema = new Schema({
     turnedOn: {type: Boolean, default: true},
     titleColor: {type: String, default: "#FFFFFF"},
     bodyColor: {type: String, default: "#FFFFFF"},
@@ -10,4 +10,4 @@ const memberConfigSchema = new Schema({
 });
 
 
-module.exports = mongoose.model("member-config", memberConfigSchema);
+module.exports = mongoose.model("post-config", postConfigSchema);

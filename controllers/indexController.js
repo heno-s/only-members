@@ -1,3 +1,13 @@
+const mongoose = require("mongoose");
+
+// models
+const Users = require("../models/users");
+const Posts = require("../models/post");
+
 exports.index_get = (req,res,next) => {
-    res.render("index", { title: "Only Members"})
+    Posts.find().populate("user").populate("config")
+        .then(allPosts =>{            
+            res.render("index", { title: "Only Members", allPosts})
+        })
+        .catch(next);
 }
