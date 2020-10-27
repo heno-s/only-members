@@ -34,9 +34,18 @@ config.addEventListener("click", event =>{
     if(event.target.tagName !== "OPTION")
         return;
     const option = event.target;
-    if(option.parentElement.id.includes("title-color"))
+    if(option.parentElement.id.includes("title-color")){
         title.style.color = option.value;
+    }
     else if(option.parentElement.id.includes("body-color")){
         content.style.color = option.value;
+    }
+    else if(option.parentElement.id.includes("shadow-color")){
+        if(option.value === "none"){
+            content.style.textShadow = "";
+            title.style.textShadow = "";
+        }
+        content.style.textShadow = `3px 1px 2px ${option.value}`;
+        title.style.textShadow = `3px 1px 2px ${option.value}`;
     }
 })

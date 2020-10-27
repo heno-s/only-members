@@ -17,12 +17,11 @@
                 </div>
             </a>
             
-            <h2 class="post__title" <%= config.turnedOn ? `style=color:${config.titleColor}` : "" %>>
+            <h2 class="post__title" style="<%= `color: ${config.titleColor}; text-shadow: .15em .07em ${config.shadowColor}` %>">
                 <%= post.title %>
             </h2>
         </div>
-        
-        <p class="post__body" <%= config.turnedOn ? `style=color:${config.bodyColor}` : "" %>>
+        <p class="post__body" style="<%= `color: ${config.bodyColor}; text-shadow: .1em .05em ${config.shadowColor}` %>">
             <%= post.body %>
         </p>
         <div class="post__footer mt-1">
@@ -58,7 +57,18 @@
                     <label for="title-color">Choose title color:</label>
                     <div class="rel select-wrapper">
                         <select name="titleColor" id="title-color">
-                            <!-- doplniť option iteration -->
+                            <option value="#ffffff">default</option>
+                            <option value="#000000">black</option>
+                            <option value="#faff00">member color</option>
+                            <option value="#004e8d">admin color</option>
+                            <option value="#c4c4c4c4">light grey</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-1">
+                    <label for="body-color">Choose message color:</label>
+                    <div class="rel select-wrapper">
+                        <select name="bodyColor" id="body-color">
                             <option value="#ffffff">default</option>
                             <option value="#000000">black</option>
                             <option value="#faff00">member color</option>
@@ -68,11 +78,10 @@
                     </div>
                 </div>
                 <div>
-                    <label for="body-color">Choose message color:</label>
+                    <label for="shadow-color">Choose shadow color:</label>
                     <div class="rel select-wrapper">
-                        <select name="bodyColor" id="body-color">
-                            <!-- doplniť option iteration -->
-                            <option value="#ffffff">default</option>
+                        <select name="shadowColor" id="shadow-color">
+                            <option value="none">none</option>
                             <option value="#000000">black</option>
                             <option value="#faff00">member color</option>
                             <option value="#004e8d">admin color</option>

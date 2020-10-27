@@ -29,19 +29,28 @@ exports.adminConfig_post = (req,res,next) => {
 }
 
 exports.createPost_post = [
-    body(["postTitle","postBody","titleColor","contentColor"]).trim().escape(),
+    body(["postTitle","postBody","titleColor","contentColor", "shadowColor"]).trim().escape(),
+    body("shadowColor").isHexColor(),
     (req,res,next) => {
-        const {postTitle,postBody,titleColor,bodyColor} = req.body;
+        if(!req.user){
+            return res.redirect("/auth/log-in");
+        }
+        const {postTitle,postBody,titleColor,bodyColor, shadowColor} = req.body;
+        const errors = validationResult(req);
         const post = new Posts({
             title: postTitle,
             body: postBody,
             user: req.user,
         });
+        if(!errors.isEmpty() && req.body.shadowColor !== "none"){
+            return res.redirect("/");
+        }
         let postConfig;
         if(req.user.isMember){
             postConfig = new PostConfigs({
                 titleColor,
                 bodyColor,
+                shadowColor,
             })
         }
         else{

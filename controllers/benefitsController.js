@@ -9,10 +9,16 @@ exports.benefits_get = (req,res,next) => {
 
 
 exports.becomeMember_get = (req,res,next) => {
+    if(!req.user){
+        return res.redirect("/auth/log-in");
+    }
     res.render("memberSecret", {title: "Become club member"});
 }
 
 exports.becomeMember_post = (req,res,next) => {
+    if(!req.user || req.user.isMember){
+        return res.redirect("/auth/log-in");
+    }
     UserStatistics.findById(req.user.statistics)
         .then(statistics =>{
             statistics.memberAttempts ++;
@@ -34,6 +40,9 @@ exports.becomeMember_post = (req,res,next) => {
 }
 
 exports.becomeAnAdmin_get = (req,res,next) => {
+    if(!req.user){
+        return res.redirect("/auth/log-in");
+    }
     Users.countDocuments({isAdmin: true})
         .then(numberOfAdmins =>{
             res.render("adminPassword", {title: "Become an admin", numberOfAdmins});
@@ -42,6 +51,9 @@ exports.becomeAnAdmin_get = (req,res,next) => {
 }
 
 exports.becomeAnAdmin_post = (req,res,next) => {
+    if(!req.user || req.user.isAdmin){
+        return res.redirect("/auth/log-in");
+    }
     UserStatistics.findById(req.user.statistics)
         .then(statistics =>{
             statistics.adminAttempts ++;
