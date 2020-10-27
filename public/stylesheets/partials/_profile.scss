@@ -22,10 +22,13 @@
   &__body {
     h1 {
       font-size: 1.2rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.2em;
     }
-    span {
+    &-data {
       font-size: 0.9rem;
+    }
+    &-group {
+      margin-bottom: 1rem;
     }
   }
 }

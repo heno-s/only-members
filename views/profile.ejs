@@ -3,10 +3,24 @@
         <div class="profile mx-auto">
         <img src="/images/users/profile-picture.png" alt="profile pic">
         <div class="profile__body">
-        <h1>Username: <span><%= user.userName %></span></h1>
-        <h1>Full name: <span><%= user.fullName %></span></h1>
-        <h1>Last logged in: <span><%= statistics.last_log_in_time_formatted %></span></h1>
-        <h1>Registered: <span><%= statistics.registration_date_formatted %></span></h1>
+            <div class="profile__body-group">
+                <h1>Username:</h1>
+                <span class="profile__body-data"><%= user.userName %></span>
+            </div>
+            <%- user.isAdmin ? `<div class="profile__body-group"><h1><span class="admins-color">Admin</span> after:</h1><span class="profile__body-data">${statistics.adminAttempts} attempts</span></div>` : ""%> 
+            <%- user.isMember ? `<div class="profile__body-group"><h1><span class="members-color">Member</span> after:</h1><span class="profile__body-data">${statistics.memberAttempts} attempts</span></div>` : "" %> 
+        <div class="profile__body-group">
+            <h1>Full name:</h1>
+            <span class="profile__body-data"><%= user.fullName %></span>
+        </div>
+        <div class="profile__body-group">
+            <h1>Last log in:</h1>
+            <span class="profile__body-data"><%= statistics.last_log_in_time_formatted %></span>
+        </div>
+        <div class="profile_body-group">
+            <h1>Registered:</h1>
+            <span class="profile__body-data"><%= statistics.registration_date_formatted %></span>
+        </div>
         </div>
         </div>
     </div>

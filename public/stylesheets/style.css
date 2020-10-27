@@ -919,11 +919,15 @@ body {
 
 .profile__body h1 {
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2em;
 }
 
-.profile__body span {
+.profile__body-data {
   font-size: 0.9rem;
+}
+
+.profile__body-group {
+  margin-bottom: 1rem;
 }
 
 .fake-profile {

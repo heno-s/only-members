@@ -17,7 +17,7 @@
                 </div>
             </a>
             
-            <h2 class="post__title" style="<%= `color: ${config.titleColor}; text-shadow: .15em .07em ${config.shadowColor}` %>">
+            <h2 class="post__title" style="<%= `color: ${config.titleColor}; text-shadow: .1em .05em ${config.shadowColor}` %>">
                 <%= post.title %>
             </h2>
         </div>
@@ -68,7 +68,7 @@
                 <div class="mb-1">
                     <label for="body-color">Choose message color:</label>
                     <div class="rel select-wrapper">
-                        <select name="bodyColor" id="body-color">
+                        <select name="bodyColor" id="body-color" data-target>
                             <option value="#ffffff">default</option>
                             <option value="#000000">black</option>
                             <option value="#faff00">member color</option>
@@ -95,6 +95,7 @@
     <div class="create-post-bubble">
         create post
     </div>
-    <script src="/javascripts/postBubbleAction.js"></script>
+    <script type="module" src="/javascripts/postBubbleAction.js"></script>
+    <script type="module" src="/javascripts/postConfigAction.js"></script>
 <% } %>
     
