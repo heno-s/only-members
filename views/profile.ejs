@@ -74,7 +74,7 @@
                         <div class="mt-1">
                         <% if (currentUser._id.toString() === user._id.toString() || currentUser.isAdmin) { %>
                             <% if (currentUser._id.toString() === user._id.toString()) { %>
-                                <form action="<%= post.url %>/update" method="POST" class="d-inline-block">
+                                <form action="<%= post.url %>/update" class="d-inline-block">
                                     <button class="btn">edit</button>
                                 </form>
                             <% } %>

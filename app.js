@@ -22,6 +22,14 @@ const {MONGODB_URI, SECRET_KEY} = process.env;
 
 // standard variables
 const adminsLimit = 10;
+const postColors = {
+  "default": "#ffffff",
+  "black": "#000000",
+  "default": "#ffffff",
+  "member color": "#faff00",
+  "admin color": "#004e8d",
+  "light grey": "#c4c4c4c4",
+}
 
 // router variables
 const indexRouter = require("./routes/index");
@@ -114,6 +122,7 @@ module.exports = app;
 function setGlobalVariables(req,res,next){
   res.locals.adminsLimit = adminsLimit;
   res.locals.currentUser = req.user;
+  res.locals.postColors = postColors;
   next();
 }
 

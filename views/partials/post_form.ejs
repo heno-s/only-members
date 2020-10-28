@@ -1,0 +1,48 @@
+<% if (currentUser) { %>
+ 
+    <div class="modal">
+    </div>
+    <form action="/users/create-post" method="POST" class="post-form <%= locals.isUpdateForm ? "post-form-update" : "" %>">
+        <% if (currentUser.isMember) { %>
+            <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
+        <% } %>
+        <input class="post-form__title" type="text" placeholder="Title" name="postTitle">
+        <textarea class="post-form__body" name="postBody" id="post-body" cols="30" rows="10" placeholder="Your thoughts"></textarea>
+        <% if (currentUser.isMember) { %>
+            <div class="post-form__config">
+                <div class="mb-1">
+                    <label for="title-color">Choose title color:</label>
+                    <div class="rel select-wrapper">
+                        <select name="titleColor" id="title-color">
+                            <% for(const key in postColors){ %>
+                            <option value="<%= postColors[key] %>"><%= key %></option>
+                        <% } %> 
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-1">
+                    <label for="body-color">Choose message color:</label>
+                    <div class="rel select-wrapper">
+                        <select name="bodyColor" id="body-color">
+                            <% for(const key in postColors){ %>
+                            <option value="<%= postColors[key] %>"><%= key %></option>
+                        <% } %> 
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="shadow-color">Choose shadow color:</label>
+                    <div class="rel select-wrapper">
+                        <select name="shadowColor" id="shadow-color">
+                            <% for(const key in postColors){ %>
+                            <option value="<%= postColors[key] === "#ffffff" ? "none" : postColors[key] %>"><%= key === "default" ? "none" : key %></option>
+                        <% } %> 
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </form>
+    
+    <script type="module" src="/javascripts/postConfigAction.js"></script>
+<% } %>

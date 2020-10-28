@@ -1,4 +1,4 @@
-<% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
+    <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
     <% const post = allPosts[index] %>
     <% const user = post.user %> 
     <% const config = post.config %>
@@ -41,61 +41,11 @@
     </div>
 <% } %>
 
-<% if (currentUser) { %>
- 
-    <div class="modal">
-    </div>
-    <form action="/users/create-post" method="POST" class="post-form">
-        <% if (currentUser.isMember) { %>
-            <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
-        <% } %>
-        <input class="post-form__title" type="text" placeholder="Title" name="postTitle">
-        <textarea class="post-form__body" name="postBody" id="post-body" cols="30" rows="10" placeholder="Your thoughts"></textarea>
-        <% if (currentUser.isMember) { %>
-            <div class="post-form__config">
-                <div class="mb-1">
-                    <label for="title-color">Choose title color:</label>
-                    <div class="rel select-wrapper">
-                        <select name="titleColor" id="title-color">
-                            <option value="#ffffff">default</option>
-                            <option value="#000000">black</option>
-                            <option value="#faff00">member color</option>
-                            <option value="#004e8d">admin color</option>
-                            <option value="#c4c4c4c4">light grey</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="mb-1">
-                    <label for="body-color">Choose message color:</label>
-                    <div class="rel select-wrapper">
-                        <select name="bodyColor" id="body-color" data-target>
-                            <option value="#ffffff">default</option>
-                            <option value="#000000">black</option>
-                            <option value="#faff00">member color</option>
-                            <option value="#004e8d">admin color</option>
-                            <option value="#c4c4c4c4">light grey</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label for="shadow-color">Choose shadow color:</label>
-                    <div class="rel select-wrapper">
-                        <select name="shadowColor" id="shadow-color">
-                            <option value="none">none</option>
-                            <option value="#000000">black</option>
-                            <option value="#faff00">member color</option>
-                            <option value="#004e8d">admin color</option>
-                            <option value="#c4c4c4c4">light grey</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        <% } %>
-    </form>
-    <div class="create-post-bubble">
-        create post
-    </div>
-    <script type="module" src="/javascripts/postBubbleAction.js"></script>
-    <script type="module" src="/javascripts/postConfigAction.js"></script>
-<% } %>
-    
+<%- include("./partials/post_form") %> 
+
+    <% if (currentUser) { %>
+        <div class="create-post-bubble">
+            create post
+        </div>
+        <script type="module" src="/javascripts/postBubbleAction.js"></script>
+    <% } %>

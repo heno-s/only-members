@@ -1,19 +1,16 @@
 .post-form {
   display: none;
-  position: fixed;
-  right: 50%;
-  top: 50%;
-  transform: translate(50%, -50%);
+  @include centerByPosition("true", "true");
   width: 80%;
   border-radius: 10px;
   z-index: 999;
-  @media (min-width: getBreakPoint(md)) {
-    border-radius: 25px;
-  }
   background-color: getColor(primary-light);
   padding: 1.4em;
   max-width: 600px;
   @media (min-width: getBreakPoint(md)) {
+    border-radius: 25px;
+    // left reset from centerByPosition mixin
+    left: auto;
     right: 20px;
     bottom: 120px;
     padding: 1.8em 2.2em;
@@ -105,5 +102,19 @@
     right: 8px;
     @include centerByPosition("true", "false", absolute);
     z-index: 1;
+  }
+}
+
+.post-form-update {
+  // reset from post-form to show it always and always be in the middle of the screen
+  display: block;
+  @include centerByPosition("true", "true");
+  max-width: 800px;
+
+  // idk why but for whatever reason when i included centerByPosition mixin
+  // the form was resizing its heaight according to the height of the window
+  // and gets distorted so i had to put min-height on it
+  @media (min-width: getBreakPoint(md)) {
+    min-height: 357px;
   }
 }

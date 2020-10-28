@@ -1,16 +1,3 @@
-// export default (function(){
-//     return{
-//         modal: document.querySelector(".modal"),
-//         postForm: document.querySelector(".post-form"),
-//         bubble: document.querySelector(".create-post-bubble"),
-//         gear: document.querySelector(".post-form__config-img"),
-//         postTitle: document.querySelector(".post-form__title"),
-//         postBody: document.querySelector(".post-form__body"),
-//         config: document.querySelector(".post-form__config"),
-//         configSelects: document.querySelector(".post-form__config").querySelectorAll("select"),
-//     }
-// })()
-
 export const modal = document.querySelector(".modal");
 export const postForm = document.querySelector(".post-form");
 export const bubble = document.querySelector(".create-post-bubble");

@@ -1,5 +1,6 @@
 // doplniť konfigurácie (drop shadow atď...) pre post
 const { body, validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 
 // models
 const Posts = require("../models/post");
@@ -68,7 +69,21 @@ exports.createPost_post = [
 }]
 
 exports.updatePost_get = (req,res,next) => {
-    res.send("update get");
+    if(!mongoose.isValidObjectId(req.params.profileId) || !mongoose.isValidObjectId(req.params.postId)
+        || !req.user){
+        return res.redirect("/");
+    }
+    Promise.all([
+        Users.findById(req.params.profileId),
+        Posts.findById(req.params.postId).populate("config"),
+    ])
+        .then(results =>{
+            const [user, post] = results;
+            if(!user || !post || user._id.toString() !== req.user._id.toString()) return res.redirect("/")
+
+            res.render("post_form",{title: "Update post", post, config: post.config});
+        })
+        .catch(next);
 }
 
 exports.updatePost_post = (req,res,next) => {
