@@ -17,11 +17,11 @@
                 </div>
             </a>
             
-            <h2 class="post__title" style="<%= `color: ${config.titleColor}; text-shadow: .1em .05em ${config.shadowColor}` %>">
+            <h2 class="post__title" style="<%= `color: ${config.titleColors.text}; text-shadow: .1em .05em ${config.titleColors.shadow}` %>">
                 <%= post.title %>
             </h2>
         </div>
-        <p class="post__body" style="<%= `color: ${config.bodyColor}; text-shadow: .1em .05em ${config.shadowColor}` %>">
+        <p class="post__body" style="<%= `color: ${config.bodyColors.text}; text-shadow: .1em .05em ${config.bodyColors.shadow}` %>">
             <%= post.body %>
         </p>
         <div class="post__footer mt-1">
@@ -42,7 +42,6 @@
 <% } %>
 
 <%- include("./partials/post_form") %> 
-
     <% if (currentUser) { %>
         <div class="create-post-bubble">
             create post

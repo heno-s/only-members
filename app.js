@@ -29,6 +29,7 @@ const postColors = {
   "member color": "#faff00",
   "admin color": "#004e8d",
   "light grey": "#c4c4c4c4",
+  "red": "#ff0000",
 }
 
 // router variables

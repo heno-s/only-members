@@ -5,7 +5,6 @@ gear.addEventListener("click", event => {
     config.classList.toggle("opacity-1");
     config.classList.toggle("pointer-events-all");
 })
-
 /* config action */
 configSelects.forEach(select =>{
     select.addEventListener("change", event =>{
@@ -16,13 +15,17 @@ configSelects.forEach(select =>{
         else if(select.id.includes("body-color")){
             postBody.style.color = select.value;
         }
-        else if(select.id.includes("shadow-color")){
+        else if(select.id.includes("title-shadow-color")){
             if(select.value === "none"){
-                postBody.style.textShadow = "";
                 postTitle.style.textShadow = "";
             }
-            postBody.style.textShadow = `3px 1px 2px ${select.value}`;
-            postTitle.style.textShadow = `3px 1px 2px ${select.value}`;
+            postTitle.style.textShadow = `.1em .05em 2px ${select.value}`;
+        }
+        else if(select.id.includes("body-shadow-color")){
+            if(select.value === "none"){
+                postBody.style.textShadow = "";
+            }
+            postBody.style.textShadow = `.1em .05em 2px ${select.value}`;
         }
     })
 })

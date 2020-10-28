@@ -2,10 +2,14 @@ const mongoose = require("mongoose");
 
 const Schema = require("mongoose").Schema;
 
+const colorsObj = {
+    text: {type: String, default: "#ffffff"},
+    shadow: String,
+}
+
 const postConfigSchema = new Schema({
-    titleColor: {type: String, default: "#FFFFFF"},
-    bodyColor: {type: String, default: "#FFFFFF"},
-    shadowColor: String,
+    titleColors: colorsObj,
+    bodyColors: colorsObj,
 });
 
 

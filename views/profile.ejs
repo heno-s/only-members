@@ -43,6 +43,7 @@
     <% } %>
     <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
         <% const post = allPosts[index] %>
+        <% const config = post.config %>
             <div class="post">
                 <div class="post__header">
                     <a href="<%= user.url %>" class="post__profile--trigger">
@@ -56,11 +57,11 @@
                             </h6>
                         </div>
                     </a>
-                    <h2 class="post__title">
+                    <h2 class="post__title" style="<%= `color: ${config.titleColors.text}; text-shadow: .1em .05em ${config.titleColors.shadow}` %>">
                         <%= post.title %>
                     </h2>
                 </div>
-                <p class="post__body">
+                <p class="post__body" style="<%= `color: ${config.bodyColors.text}; text-shadow: .1em .05em ${config.bodyColors.shadow}` %>">
                         <%= post.body %>
                 </p>
                 <div class="post__footer">

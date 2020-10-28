@@ -48,10 +48,16 @@
       right: 35px;
       top: -5px;
     }
+    &--select-group {
+      display: inline-block;
+      margin-right: 0.5em;
+    }
     select {
-      width: 100%;
+      width: fit-content;
+      padding-right: 13px;
       @media (min-width: getBreakPoint(md)) {
         font-size: 0.9rem;
+        padding-right: 22px;
       }
     }
     option {
@@ -87,21 +93,31 @@
 .select-wrapper {
   &::after {
     content: "";
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     background-color: black;
-    right: 10px;
+    right: 5px;
     @include centerByPosition("true", "false", absolute);
     transform: translateY(-50%) rotate(45deg);
+    @media (min-width: getBreakPoint(md)) {
+      width: 12px;
+      height: 12px;
+      right: 8px;
+    }
   }
   &::before {
     content: "";
-    width: 15px;
-    height: 2px;
+    width: 12px;
+    height: 1px;
     background-color: getColor(secondary);
-    right: 8px;
+    right: 3px;
     @include centerByPosition("true", "false", absolute);
     z-index: 1;
+    @media (min-width: getBreakPoint(md)) {
+      width: 20px;
+      height: 2px;
+      right: 5px;
+    }
   }
 }
 

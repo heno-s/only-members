@@ -15,7 +15,7 @@ exports.users_get = (req,res,next) => {
 exports.user_get = (req,res,next) => {
     Promise.all([
         Users.findById(req.params.profileId).populate("statistics"),
-        Posts.find({user: req.params.profileId}),
+        Posts.find({user: req.params.profileId}).populate("config"),
     ])
         .then(results =>{
             const [user, allPosts] = results;
@@ -30,28 +30,39 @@ exports.adminConfig_post = (req,res,next) => {
 }
 
 exports.createPost_post = [
-    body(["postTitle","postBody","titleColor","contentColor", "shadowColor"]).trim().escape(),
-    body("shadowColor").isHexColor(),
+    body(["postTitle","postBody","titleTextColor", "titleShadowColor","bodyTextColor","bodyShadowColor"]).trim().escape(),
+    body(["titleTextColor", "titleShadowColor","bodyTextColor","bodyShadowColor"], "not valid hexadecimal number").isHexColor(),
     (req,res,next) => {
         if(!req.user){
             return res.redirect("/auth/log-in");
         }
-        const {postTitle,postBody,titleColor,bodyColor, shadowColor} = req.body;
+        const {postTitle,postBody,titleTextColor,titleShadowColor,bodyTextColor,bodyShadowColor} = req.body;
+        console.log("bodyShadowColor", bodyShadowColor)
+        console.log("bodyTextColor", bodyTextColor)
+        console.log("titleShadowColor", titleShadowColor)
+        console.log("titleTextColor", titleTextColor)
         const errors = validationResult(req);
         const post = new Posts({
             title: postTitle,
             body: postBody,
             user: req.user,
         });
-        if(!errors.isEmpty() && req.body.shadowColor !== "none"){
+        console.log(errors.array())
+        if(!errors.isEmpty() && titleShadowColor !== "none" && bodyShadowColor !== "none"){
+            console.log(!errors.isEmpty() && titleShadowColor !== "none" && bodyShadowColor !== "none")
             return res.redirect("/");
         }
         let postConfig;
         if(req.user.isMember){
             postConfig = new PostConfigs({
-                titleColor,
-                bodyColor,
-                shadowColor,
+                titleColors: {
+                    text: titleTextColor,
+                    shadow: titleShadowColor,
+                },
+                bodyColors: {
+                    text: bodyTextColor,
+                    shadow: bodyShadowColor,
+                },
             })
         }
         else{
@@ -79,6 +90,9 @@ exports.updatePost_get = (req,res,next) => {
     ])
         .then(results =>{
             const [user, post] = results;
+            // checking whether the post and user even exsists, if so
+            // checking if the logged in user is the owner of the profile user,
+            // otherwise not allow to update the post
             if(!user || !post || user._id.toString() !== req.user._id.toString()) return res.redirect("/")
 
             res.render("post_form",{title: "Update post", post, config: post.config});
