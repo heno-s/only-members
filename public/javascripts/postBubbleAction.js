@@ -1,14 +1,10 @@
-import {bubble,postForm,config,modal} from "./getElements.js";
+import {bubble,postForm,modal} from "./getElements.js";
 
 
 /*  action */
 bubble.addEventListener("click", event =>{
     modal.classList.toggle("display-show");
     postForm.classList.toggle("display-show");
-
-    // close configs if they are open and  is clicked
-    config.classList.remove("opacity-1");
-    config.classList.remove("pointer-events-all");
 })
 
 modal.addEventListener("click", event =>{
@@ -18,4 +14,10 @@ modal.addEventListener("click", event =>{
     }
 })
 
+window.addEventListener("keyup", event =>{
+    if(event.key !== "Escape")
+        return;
 
+    postForm.classList.remove("display-show");
+    modal.classList.remove("display-show");
+});

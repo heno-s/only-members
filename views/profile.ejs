@@ -44,49 +44,8 @@
     <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
         <% const post = allPosts[index] %>
         <% const config = post.config %>
-            <div class="post">
-                <div class="post__header">
-                    <a href="<%= user.url %>" class="post__profile--trigger">
-                        <img class="post__profile-image" src="<%= user.profilePictureUrl %>" alt="profile picture">
-                        <div class="post__profile-info">
-                            <h3 class="post__profile-name">
-                                <%= user.userName %>
-                            </h3>
-                            <h6 class="post__profile-rank member <%= user.highestRank ? user.highestRank+"s-color" : ""%>">
-                                <%= user.highestRank %>
-                            </h6>
-                        </div>
-                    </a>
-                    <h2 class="post__title" style="<%= `color: ${config.titleColors.text}; text-shadow: .1em .05em ${config.titleColors.shadow}` %>">
-                        <%= post.title %>
-                    </h2>
-                </div>
-                <p class="post__body" style="<%= `color: ${config.bodyColors.text}; text-shadow: .1em .05em ${config.bodyColors.shadow}` %>">
-                        <%= post.body %>
-                </p>
-                <div class="post__footer">
-                    <p class="mb-05">
-                        posted: <%= post.created_at_formatted %>
-                    </p>
-                    <p>
-                        <%= post.edited ? `edited: ${post.edited_at_formatted}` : ""%>
-                    </p>
-                    <% if (currentUser) { %>
-                        <div class="mt-1">
-                        <% if (currentUser._id.toString() === user._id.toString() || currentUser.isAdmin) { %>
-                            <% if (currentUser._id.toString() === user._id.toString()) { %>
-                                <form action="<%= post.url %>/update" class="d-inline-block">
-                                    <button class="btn">edit</button>
-                                </form>
-                            <% } %>
-                                <form action="<%= post.url %>/delete" method="POST" class="d-inline-block">
-                                    <button class="btn">delete</button>
-                                </form>
-                        <% } %>
-                        </div>
-                    <% } %>
-                </div>
-            </div>
+
+            <%- include("./partials/post", {post, user, config}) %>
     <% } %>
     </div>
 </div>

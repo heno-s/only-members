@@ -3,29 +3,29 @@
  
     <div class="modal">
     </div>
-    <form action="/users/create-post" method="POST" class="post-form
+    <form action="<%= locals.isUpdateForm ? `${post.url}/update` : "/users/create-post" %>" method="POST" class="post-form
         <%= locals.isUpdateForm ? "post-form-update" : "" %>">
-
+        <input type="hidden" value="<%= locals.redirectPath ? redirectPath : "" %>" name="redirectPath">
         <% if (currentUser.isMember) { %>
             <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
         <% } %>
         <input class="post-form__title" type="text" placeholder="Title" name="postTitle" value="<%= locals.isUpdateForm ? post.title : "" %>"
-            style="<%= locals.isUpdateForm ? `color: ${config.titleColors.text}; text-shadow: .1em .05em ${config.titleColors.shadow}` : ""%>"">
+            style="<%= locals.isUpdateForm ? `color: ${config.title.textColor}; ${config.title.hasShadow ? `text-shadow: ${config.title.shadowSize} ${config.title.shadowColor}` : ""}` : ""%>"">
 
         <textarea class="post-form__body" name="postBody" id="post-body" cols="30" rows="10" placeholder="Your thoughts"
-            style="<%= locals.isUpdateForm ? `color: ${config.bodyColors.text}; text-shadow: .1em .05em ${config.bodyColors.shadow}` : ""%>"><%= locals.isUpdateForm ? post.body : "" %></textarea>
+            style="<%= locals.isUpdateForm ? `color: ${config.body.textColor}; ${config.body.hasShadow ? `text-shadow: ${config.body.shadowSize} ${config.body.shadowColor}` : ""}` : ""%>"><%= locals.isUpdateForm ? post.body : "" %></textarea>
 
         <% if (currentUser.isMember) { %>
             <div class="post-form__config">
                 <div class="mb-1">
-                    <p class="mb-03">Title colors</p>
+                    <p class="">Title colors</p>
                     <div class="post-form__config--select-group">
                         <label for="title-color">text:</label>
                         <div class="rel select-wrapper">
-                            <select autocomplete="off" name="titleTextColor" id="title-color" data-target="postTitle">
-                                <% for(const key in postColors){ %>
-                                <option value="<%= postColors[key] %>"
-                                    <%= locals.isUpdateForm ? config.titleColors.text === postColors[key] ? "selected" : "" : "" %>><%= key %></option>
+                            <select class="post-form__config-select" autocomplete="off" name="titleTextColor" id="title-color">
+                                <% for(const key in textColors){ %>
+                                <option value="<%= textColors[key] %>"
+                                    <%= locals.isUpdateForm ? config.title.textColor === textColors[key] ? "selected" : "" : "" %>><%= key %></option>
                             <% } %> 
                             </select>
                         </div>
@@ -33,43 +33,47 @@
                     <div class="post-form__config--select-group">
                         <label for="title-shadow-color">shadow:</label>
                         <div class="rel select-wrapper">
-                            <select autocomplete="off" name="titleShadowColor" id="title-shadow-color" data-target="postTitle">
-                                <% for(const key in postColors){ %>
-                                <option value="<%= postColors[key] === "#ffffff" ? "none" : postColors[key] %>"
-                                    <%= locals.isUpdateForm ? config.titleColors.shadow === postColors[key] ? "selected" : "" : "" %>><%= key === "default" ? "none" : key %></option>
+                            <select class="post-form__config-select" autocomplete="off" name="titleShadowColor" id="title-shadow-color">
+                                <% for(const key in shadowColors){ %>
+                                <option value="<%= shadowColors[key]%>"
+                                    <%= locals.isUpdateForm ? config.title.shadowColor === shadowColors[key] ? "selected" : "" : "" %>><%= key %></option>
                             <% } %> 
                             </select>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <p class="mb-03">Message colors</p>
+                    <p class="">Message colors</p>
                     <div class="post-form__config--select-group">
                         <label for="body-color">text:</label>
                         <div class="rel select-wrapper">
-                            <select autocomplete="off" name="bodyTextColor" id="body-color" data-target="postBody">
-                                <% for(const key in postColors){ %>
-                                <option value="<%= postColors[key] %>"
-                                    <%= locals.isUpdateForm ? config.bodyColors.text === postColors[key] ? "selected" : "" : "" %> ><%= key %></option>
-                            <% } %> 
+                            <select class="post-form__config-select" autocomplete="off" name="bodyTextColor" id="body-color">
+                                <% for(const key in textColors){ %>
+                                    <option value="<%= textColors[key] %>"
+                                        <%= locals.isUpdateForm ? config.body.textColor === textColors[key] ? "selected" : "" : "" %>><%= key %></option>
+                                <% } %> 
                             </select>
                         </div>
                     </div>
                     <div class="post-form__config--select-group">
                         <label for="body-shadow-color">shadow:</label>
                         <div class="rel select-wrapper">
-                            <select autocomplete="off" name="bodyShadowColor" id="body-shadow-color" data-target="postBody">
-                                <% for(const key in postColors){ %>
-                                <option value="<%= postColors[key] === "#ffffff" ? "none" : postColors[key] %>"
-                                    <%= locals.isUpdateForm ? config.bodyColors.shadow === postColors[key] ? "selected" : "" : "" %>><%= key === "default" ? "none" : key %></option>
-                            <% } %> 
+                            <select class="post-form__config-select" autocomplete="off" name="bodyShadowColor" id="body-shadow-color">
+                                <% for(const key in shadowColors){ %>
+                                    <option value="<%= shadowColors[key]%>"
+                                        <%= locals.isUpdateForm ? config.body.shadowColor === shadowColors[key] ? "selected" : "" : "" %>><%= key %></option>
+                                <% } %> 
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
         <% } %>
+        <button class="post-form__send-btn">
+            <img src="/images/arrow.png" alt="arrow">
+        </button>
     </form>
-    
-    <script type="module" src="/javascripts/postConfigAction.js"></script>
+    <% if (currentUser.isMember) { %>
+        <script type="module" src="/javascripts/postConfigAction.js"></script>
+    <% } %>
 <% } %>

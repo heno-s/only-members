@@ -31,6 +31,7 @@
     }
   }
   &__config {
+    min-width: 271px;
     font-size: 0.8rem;
     position: absolute;
     right: 25px;
@@ -39,7 +40,7 @@
     border-radius: 10px;
     opacity: 0;
     pointer-events: none;
-    padding: 0.7em 1.6em 1.3em;
+    padding: 0.7em 1.5em 1.3em;
     overflow: hidden;
     background-color: grey;
     transition: opacity 500ms linear;
@@ -52,16 +53,16 @@
       display: inline-block;
       margin-right: 0.5em;
     }
-    select {
-      width: fit-content;
-      padding-right: 13px;
-      @media (min-width: getBreakPoint(md)) {
-        font-size: 0.9rem;
-        padding-right: 22px;
-      }
-    }
     option {
       cursor: pointer;
+    }
+  }
+  &__config-select {
+    width: fit-content;
+    padding-right: 14px;
+    @media (min-width: getBreakPoint(md)) {
+      font-size: 0.9rem;
+      padding-right: 22px;
     }
   }
   &__title,
@@ -86,6 +87,21 @@
   &__body {
     @media (min-width: getBreakPoint(md)) {
       font-size: 1rem;
+    }
+  }
+  &__send-btn {
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: auto;
+    border: none;
+    transform: translateY(-100%);
+    @include flexbox(center, center);
+    img {
+      width: 34px;
+      @media (min-width: getBreakPoint(md)) {
+        width: 45px;
+      }
     }
   }
 }

@@ -20,7 +20,7 @@ postSchema.virtual("edited_at_formatted").get(function(){
 });
 
 postSchema.virtual("url").get(function(){
-    return `/users/${this.user}/posts/${this._id}`;
+    return `/users/${this.user._id}/posts/${this._id}`;
 });
 
 module.exports = mongoose.model("post", postSchema);

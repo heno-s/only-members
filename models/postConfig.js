@@ -2,14 +2,16 @@ const mongoose = require("mongoose");
 
 const Schema = require("mongoose").Schema;
 
-const colorsObj = {
-    text: {type: String, default: "#ffffff"},
-    shadow: String,
+const configObj = {
+    textColor: {type: String, default: "#ffffff"},
+    hasShadow: {type: Boolean, default: false},
+    shadowColor: String,
+    shadowSize: {type: String, default: ".15em .08em"}
 }
 
 const postConfigSchema = new Schema({
-    titleColors: colorsObj,
-    bodyColors: colorsObj,
+    title: configObj,
+    body: configObj,
 });
 
 
