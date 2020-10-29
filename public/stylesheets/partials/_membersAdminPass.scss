@@ -1,26 +1,25 @@
 .mem-ad-container {
+  @include flexbox(center, center, column);
+  transform: translateY(-10%);
+  min-height: getScreenVhHeight(default);
+  @media (min-width: getBreakPoint(sm)) {
+    min-height: getScreenVhHeight(sm);
+  }
+  @media (min-width: getBreakPoint(md)) {
+    min-height: getScreenVhHeight(md);
+  }
+}
+.mem-ad-form-container {
   background: getColor(primary-dark);
   border-radius: 20px;
   padding: 2em;
   width: 80%;
   max-width: 350px;
   box-shadow: 0 0 5px 0 black;
-  @include centerByPosition("true", "true");
   input {
     width: 100%;
   }
 }
 .mem-ad-password-invalid {
   color: #b50000;
-}
-
-.admin-intro {
-  font-size: 2rem;
-  font-weight: 900;
-  position: fixed;
-  width: calc(100% - #{$body-padding} * 2);
-  top: 20%;
-  @media (min-width: getBreakPoint(sm)) {
-    top: 25%;
-  }
 }
