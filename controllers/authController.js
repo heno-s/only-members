@@ -35,6 +35,9 @@ exports.auth_get = (req,res,next) => {
 }
 
 exports.register_get = (req,res,next) => {
+    if(req.user){
+        return res.redirect("/");
+    }
     res.render("register", {title: "Registration"})
 }
 
@@ -44,6 +47,9 @@ body(["userName","firstName","lastName"], " field cannot be longer than 25 chara
 body("confirmPassword").trim().escape(),
 // needed to make the function async for convenience of identifying whether username is already in the database
 async (req,res,next) =>{
+    if(req.user){
+        return res.redirect("/");
+    }
     const errors = validationResult(req);
     // i have to do the match check on my own, because body.equals does not work
         if(req.body.password !== req.body.confirmPassword){
@@ -90,10 +96,17 @@ async (req,res,next) =>{
 ]
 
 exports.logIn_get = (req,res,next) => {
+    if(req.user){
+        return res.redirect("/")
+    }    
+
     res.render("log-in", {title: "Log in"})
 }
 
 exports.logIn_post = (req,res,next) => {
+    if(req.user){
+        return res.redirect("/");
+    }
     const {userName,password} = req.body;
     
     passport.authenticate("local",
@@ -121,7 +134,9 @@ exports.logIn_post = (req,res,next) => {
 }
 
 exports.logOut_post = (req,res,next) => {
-    
+    if(!req.user){
+        return res.redirect("/auth/log-in")
+    }
     UserStatistics.findByIdAndUpdate(req.user.statistics,{lastLogOutTime: new Date()},{useFindAndModify: false})
         .catch(next);
   req.logout();
