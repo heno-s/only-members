@@ -33,7 +33,7 @@ configSelects.forEach(select =>{
             if(!select.value){
                 return postBody.style.textShadow = "";
             }
-            postBody.style.textShadow = `.13em .075em ${select.value}`;
+            postBody.style.textShadow = `.12em .07em ${select.value}`;
         }
     })
 })
