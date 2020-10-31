@@ -1,0 +1,35 @@
+<div id="posts-container">
+    <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
+        <% const post = allPosts[index] %>
+        <% const user = locals.user ? locals.user : post.user %>
+        <% const config = post.config %>
+        
+        <!-- display original posts only to members and admins or the owner of the post -->
+        <!-- !post.hasEditedVersion must be checked as well, otherwise wouldn't load even original posts with no edited version -->
+        <% if (!post.hasEditedVersion ||
+                currentUser && currentUser._id.toString() === user._id.toString() ||
+                currentUser && currentUser.isMember ||
+                currentUser && currentUser.isAdmin) { %>
+                <%- include("./post", {
+                    post,
+                    user,
+                    config,
+                    hasEditedVersion: post.hasEditedVersion,
+                    editedVersionId: post.hasEditedVersion ? post.editedVersion._id : "",
+                }) %>
+        <% } %>
+
+            <% if (post.hasEditedVersion) { %>
+                <%- include("./post", {
+                    post: post.editedVersion,
+                    user,
+                    config: post.editedVersion.editedConfig,
+                    isEditedVersion: true,
+                    originalVersionId: post._id,
+                }) %>
+            <% } %>
+    <% } %>
+</div>
+<% if (currentUser) { %>
+    <script src="/javascripts/toggleOriginalEdited.js"></script>
+<% } %>

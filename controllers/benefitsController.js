@@ -1,4 +1,4 @@
-const { ADMIN_KEY, MEMBER_KEY } = process.env;
+const { ADMIN_PASSWORD, MEMBER_KEY } = process.env;
 const Users = require("../models/users");
 const AdminConfigs = require("../models/adminConfig");
 const UserStatistics = require("../models/userStatistics");
@@ -16,8 +16,11 @@ exports.becomeMember_get = (req,res,next) => {
 }
 
 exports.becomeMember_post = (req,res,next) => {
-    if(!req.user || req.user.isMember){
+    if(!req.user){
         return res.redirect("/auth/log-in");
+    }
+    else if(req.user.isMember){
+        return res.redirect("/benefits/join-the-club");
     }
     UserStatistics.findById(req.user.statistics)
         .then(statistics =>{
@@ -25,6 +28,9 @@ exports.becomeMember_post = (req,res,next) => {
             return statistics.save();
         })
         .catch(next);
+
+        console.log(req.body.password)
+        console.log(MEMBER_KEY)
     if(req.body.password === MEMBER_KEY){
         const {user} = req;
         user.isMember = true;
@@ -51,8 +57,11 @@ exports.becomeAnAdmin_get = (req,res,next) => {
 }
 
 exports.becomeAnAdmin_post = (req,res,next) => {
-    if(!req.user || req.user.isAdmin){
+    if(!req.user){
         return res.redirect("/auth/log-in");
+    }
+    else if(req.user.isAdmin){
+        return res.redirect("/benefits/become-an-admin")
     }
     UserStatistics.findById(req.user.statistics)
         .then(statistics =>{
@@ -60,7 +69,7 @@ exports.becomeAnAdmin_post = (req,res,next) => {
             return statistics.save();
         })
         .catch(next);
-    if(req.body.password === ADMIN_KEY){
+    if(req.body.password === ADMIN_PASSWORD){
         const {user} = req;
         user.isAdmin = true;
         user.highestRank = "admin";

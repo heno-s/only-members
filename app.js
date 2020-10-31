@@ -17,14 +17,12 @@ const Users = require("./models/users");
 const AppStatistics = require("./models/appStatistics");
 const UserStatistics = require("./models/userStatistics");
 
-const PostConfig = require("./models/postConfig");
+
 // environment variables
 const {MONGODB_URI, SECRET_KEY} = process.env;
 
-// standard variables
+// res global variables
 const adminsLimit = 10;
-
-
 const textColors = {
   "default": "#ffffff",
   "black": "#000000",
@@ -32,11 +30,11 @@ const textColors = {
   "admin color": "#004e8d",
   "light grey": "#c4c4c4c4",
   "red": "#ff0000",
-  "green" : "#91C860",
+  "green" : "#91c860",
+  "cyan": "#00ffff",
 }
-// made separate object for shadow colors, because its default value is none
-// and maybe for further flexibility, if i would like to change shadow colors 
-// and let text colors be the way they were, or vice versa.
+// made separate object for shadow colors, because its default key
+// is none and default value is empty string
 const shadowColors = {
   "none": "",
   "black": "#000000",
@@ -45,6 +43,7 @@ const shadowColors = {
   "light grey": "#c4c4c4c4",
   "red": "#ff0000",
   "green" : "#91C860",
+  "cyan": "#00ffff",
 }
 
 // router variables

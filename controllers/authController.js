@@ -126,7 +126,7 @@ exports.logIn_post = (req,res,next) => {
                         return statistics.save();
                     })
                     .catch(next);
-                return res.redirect("/");
+                res.redirect("/")
             });
         }
 

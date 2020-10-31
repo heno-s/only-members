@@ -4,8 +4,8 @@
     <div class="modal">
     </div>
     <form action="<%= locals.isUpdateForm ? `${post.url}/update` : "/users/create-post" %>" method="POST" class="post-form
-        <%= locals.isUpdateForm ? "post-form-update" : "" %>">
-        <input type="hidden" value="<%= locals.redirectPath ? redirectPath : "" %>" name="redirectPath">
+        <%= locals.isStandaloneForm ? "post-form-standalone" : "" %>">
+        <input type="hidden" value="<%= locals.redirectPathUpdate ? redirectPathUpdate : "/" %>" name="redirectPathUpdate">
         <% if (currentUser.isMember) { %>
             <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
         <% } %>

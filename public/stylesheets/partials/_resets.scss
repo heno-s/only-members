@@ -40,7 +40,9 @@ select {
   border-radius: 500px;
   background-color: getColor(secondary);
 }
-
+button {
+  cursor: pointer;
+}
 :required {
   box-shadow: none;
 }

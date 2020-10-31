@@ -1,11 +1,4 @@
-    <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
-    <% const post = allPosts[index] %>
-    <% const user = post.user %> 
-    <% const config = post.config %>
-
-    <%- include("./partials/post", { post, user, config}) %>
-<% } %>
-
+<%- include("./partials/allPosts") %>
 <%- include("./partials/post_form") %> 
     <% if (currentUser) { %>
         <div class="create-post-bubble">

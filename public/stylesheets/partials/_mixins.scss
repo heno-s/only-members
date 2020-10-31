@@ -2,7 +2,10 @@
   $justify-content: stretch,
   $align-items: stretch,
   $direction: row,
-  $wrap: nowrap
+  $wrap: nowrap,
+  $gap: 0,
+  $row-gap: 0,
+  $column-gap: 0
 ) {
   display: flex;
   // added if statements for lesser code in the output css file if the values are defaults
@@ -14,6 +17,15 @@
   }
   @if ($direction != row or $wrap != nowrap) {
     flex-flow: $direction $wrap;
+  }
+  @if ($gap != 0) {
+    gap: $gap;
+  }
+  @if ($column-gap != 0) {
+    column-gap: $column-gap;
+  }
+  @if ($row-gap != 0) {
+    row-gap: $row-gap;
   }
 }
 

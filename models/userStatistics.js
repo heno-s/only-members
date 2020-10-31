@@ -13,7 +13,7 @@ const userStatisticsSchema = new Schema({
 }, {timestamps: true});
 
 userStatisticsSchema.virtual("registration_date_formatted").get(function() {
-    return moment(this.createdAt).format("DD.MM.YYYY");
+    return moment(this.createdAt).format("DD.MM.YYYY, h:mm:ss a");
 });
 
 userStatisticsSchema.virtual("last_log_in_time_formatted").get(function() {
@@ -21,7 +21,7 @@ userStatisticsSchema.virtual("last_log_in_time_formatted").get(function() {
 });
 
 userStatisticsSchema.virtual("last_log_out_time_formatted").get(function() {
-    return moment(this.lastLogOutTime).format("DD.MM.YYYY");
+    return moment(this.lastLogOutTime).format("DD.MM.YYYY, h:mm:ss a");
 });
 
 module.exports = mongoose.model("user-statistics", userStatisticsSchema);

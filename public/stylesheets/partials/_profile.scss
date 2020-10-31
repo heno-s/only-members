@@ -36,6 +36,7 @@
 .fake-profile {
   cursor: pointer;
   position: fixed;
+  z-index: 1;
   left: 5px;
   border-radius: 7px;
   padding: 0.2em;

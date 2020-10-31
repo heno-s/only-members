@@ -41,12 +41,7 @@
     <% if (allPosts.length === 0) { %>
         <h1 class="text-center">No posts</h1>
     <% } %>
-    <% for( let index = allPosts.length - 1; index >= 0; index-- ) { %>
-        <% const post = allPosts[index] %>
-        <% const config = post.config %>
-
-            <%- include("./partials/post", {post, user, config}) %>
-    <% } %>
+    <%- include("./partials/allPosts", {redirectPath: user.url}) %>
     </div>
 </div>
 

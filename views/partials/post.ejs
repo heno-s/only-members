@@ -1,5 +1,23 @@
-<div id="<%= post._id %>" class="post">
-    <div class="post__header">
+<div id="<%= post._id %>" class="post <%= locals.isEditedVersion || !locals.hasEditedVersion ? "" : "display-none" %>">
+
+        <% const isSameUser =  currentUser ? currentUser._id.toString() === user._id.toString() : false %> 
+
+        <% if (!post.hasEditedVersion && (isSameUser ||  currentUser && currentUser.isAdmin)) { %>
+            <div class="mb-05 post__interactions">
+            <% if (isSameUser) { %>
+                    <form action="<%= post.url %>/update" class="post__edit">
+                    <button><img src="/images/edit-pencil.png" alt="edit pencil"></button>
+                    </form>
+            <% } %>
+            <% if (isSameUser || currentUser.isAdmin) { %>
+                <form action="<%= post.url %>/delete" method="POST" class="post__delete ml-auto">
+                    <input type="hidden" value="<%= locals.redirectPath ? redirectPath : "/" %>" name="redirectPath">   
+                    <button>X</button>
+                </form>
+                <% } %>
+            </div>
+        <% } %>
+    <div class="post__header ">
         <a href="<%= user.url %>" class="post__profile--trigger">
             <img class="post__profile-image" src="<%= user.profilePictureUrl %>" alt="profile picture">
             <div class="post__profile-info">
@@ -20,25 +38,25 @@
         <%= post.body %>
     </p>
     <div class="post__footer mt-1">
-        <p class="mb-05">
-            posted: <%= post.created_at_formatted %>
-        </p>
-        <p>
-            <%= post.edited ? `edited: ${post.edited_at_formatted}` : "" %> 
-        </p>
-    </div>
-    <% if (currentUser) { %>
-        <% if (currentUser._id.toString() === user._id.toString() || currentUser.isAdmin) { %>
-            <div class="mt-1">
-            <% if (currentUser._id.toString() === user._id.toString()) { %>
-                <form action="<%= post.url %>/update" class="d-inline-block">
-                    <button class="btn">edit</button>
-                </form>
-            <% } %>
-                <form action="<%= post.url %>/delete" method="POST" class="d-inline-block">
-                    <button class="btn">delete</button>
-                </form>
-            </div>
+        <% if (post.isEditedVersion) { %>
+            <p>
+                edited: <%= post.edited_at_formatted %>
+            </p>
         <% } %>
-    <% } %>
+        <% if (!post.isEditedVersion) { %>
+            <p>
+                posted: <%= post.created_at_formatted %>
+            </p>
+         
+        <% } %>
+        <% if (isSameUser || currentUser && currentUser.isMember || currentUser &&  currentUser.isAdmin) { %>
+            <% if (locals.isEditedVersion) { %>
+                <p class="pointer" data-functionality="post-unveil" data-show="<%= originalVersionId %>" data-hide="<%= post._id %>">show original</p>
+            <% } %>
+            <% if (locals.hasEditedVersion) { %>
+                <p class="pointer" data-functionality="post-unveil" data-show="<%= editedVersionId %>" data-hide="<%= post._id %>">show edited</p>
+            <% } %>
+        <% } %>
+    </div>
+    
 </div>

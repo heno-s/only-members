@@ -9,6 +9,7 @@
   max-width: 750px;
   margin: 0 auto;
   margin-bottom: 2em;
+  position: relative;
   @media (min-width: getBreakPoint(md)) {
     border-radius: 25px;
   }
@@ -92,10 +93,57 @@
     }
   }
   &__footer {
+    @include flexbox(
+      space-between,
+      $wrap: wrap,
+      $column-gap: 3em,
+      $row-gap: 0.7em
+    );
     font-family: serif;
     font-size: 0.8rem;
     @media (min-width: getBreakPoint(md)) {
       font-size: 0.9rem;
+    }
+  }
+  &__interactions {
+    float: right;
+    @include flexbox($direction: column);
+    @media (min-width: getBreakPoint(sm)) {
+      flex-direction: row;
+      float: none;
+    }
+  }
+  &__edit {
+    order: 1;
+    @media (min-width: getBreakPoint(sm)) {
+      order: 0;
+    }
+    button {
+      background: transparent;
+      border: none;
+    }
+    img {
+      width: 15px;
+      @media (min-width: getBreakPoint(md)) {
+        width: 20px;
+      }
+    }
+  }
+  &__delete {
+    order: 0;
+    margin-bottom: 0.5em;
+    @media (min-width: getBreakPoint(sm)) {
+      order: 1;
+      margin: 0;
+    }
+    button {
+      font-size: 0.85rem;
+      font-weight: bold;
+      border: none;
+      background-color: transparent;
+      @media (min-width: getBreakPoint(md)) {
+        font-size: 1rem;
+      }
     }
   }
 }
