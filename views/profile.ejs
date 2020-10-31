@@ -7,8 +7,8 @@
                 <h1>Username:</h1>
                 <span class="profile__body-data"><%= user.userName %></span>
             </div>
-            <%- user.isAdmin ? `<div class="profile__body-group"><h1><span class="admins-color">Admin</span> after:</h1><span class="profile__body-data">${statistics.adminAttempts} attempts</span></div>` : ""%> 
-            <%- user.isMember ? `<div class="profile__body-group"><h1><span class="members-color">Member</span> after:</h1><span class="profile__body-data">${statistics.memberAttempts} attempts</span></div>` : "" %> 
+            <%- user.isAdmin ? `<div class="profile__body-group"><h1><span class="admins-color">Admin</span> after:</h1><span class="profile__body-data">${statistics.adminAttempts} ${statistics.adminAttempts > 1 ? "attempts" : "attempt"}</span></div>` : ""%> 
+            <%- user.isMember ? `<div class="profile__body-group"><h1><span class="members-color">Member</span> after:</h1><span class="profile__body-data">${statistics.memberAttempts} ${statistics.memberAttempts > 1 ? "attempts" : "attempt"}</span></div>` : "" %> 
         <div class="profile__body-group">
             <h1>Full name:</h1>
             <span class="profile__body-data"><%= user.fullName %></span>
