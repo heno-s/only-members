@@ -44,6 +44,7 @@
     overflow: hidden;
     background-color: grey;
     transition: opacity 500ms linear;
+    @include flexbox(center, center, column);
     @media (min-width: getBreakPoint(md)) {
       font-size: 1rem;
       right: 35px;
