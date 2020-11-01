@@ -17,7 +17,8 @@ Mobile friendly, data-driven, user-based application, where users can register, 
 a lot of small things such as:
 - _var_ variables are stored in window object while _const_ and _let_ are not.
 - script in html that has the _src_ attribute will not execute what is between its tags
-- form with no action will automatically send _GET_ request to the server particularly to the path that we currently are in addition with query parameters in format <\input-name attribute>=<\input-value>
+- forms with _GET_ request method will send _GET_ request along with queries in format <\input-nameAttribute>=<\input-value>
+- realized workaround: if i really for some reason need to send data along with GET request, it is possible via queries.
 - JS optional chaining operator (pretty new feature - 2020)
 - what term short-circuiting means
 - what is operator associativity and when it comes into picture
