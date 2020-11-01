@@ -6,12 +6,13 @@
             <div class="mb-05 post__interactions">
             <% if (isSameUser) { %>
                     <form action="<%= post.url %>/update" class="post__edit">
-                    <button><img src="/images/edit-pencil.png" alt="edit pencil"></button>
+                        <input type="hidden" name="redirectPathUpdate" value="<%= locals.redirectPathUpdate ? redirectPathUpdate : "/" %>">   
+                        <button><img src="/images/edit-pencil.png" alt="edit pencil"></button>
                     </form>
             <% } %>
             <% if (isSameUser || currentUser.isAdmin) { %>
                 <form action="<%= post.url %>/delete" method="POST" class="post__delete ml-auto">
-                    <input type="hidden" value="<%= locals.redirectPath ? redirectPath : "/" %>" name="redirectPath">   
+                    <input type="hidden" value="<%= locals.redirectPathDelete ? redirectPathDelete : "/" %>" name="redirectPathDelete">   
                     <button>X</button>
                 </form>
                 <% } %>

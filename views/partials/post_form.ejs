@@ -1,11 +1,10 @@
 <!-- All of update form specific code is on next line to recognize it  -->
 <% if (currentUser) { %>
- 
     <div class="modal">
     </div>
     <form action="<%= locals.isUpdateForm ? `${post.url}/update` : "/users/create-post" %>" method="POST" class="post-form
         <%= locals.isStandaloneForm ? "post-form-standalone" : "" %>">
-        <input type="hidden" value="<%= locals.redirectPathUpdate ? redirectPathUpdate : "/" %>" name="redirectPathUpdate">
+        <input type="hidden" value="<%= locals.redirectPathUpdate ? `${redirectPathUpdate}#${post._id}` : "/" %>" name="redirectPathUpdate">
         <% if (currentUser.isMember) { %>
             <img class="post-form__config-img" src="/images/gear.png" alt="gear image">
         <% } %>

@@ -131,9 +131,9 @@ exports.updatePost_get = (req,res,next) => {
             }
 
             if(editedVersion){
-                return res.render("post_form_update",{title: "Update post", post: editedVersion, config: editedVersion.editedConfig});
+                return res.render("post_form_update",{title: "Update post", post: editedVersion, config: editedVersion.editedConfig, redirectPathUpdate: req.query.redirectPathUpdate});
             }
-            res.render("post_form_update",{title: "Update post", post, config: post.config});
+            res.render("post_form_update",{title: "Update post", post, config: post.config, redirectPathUpdate: req.query.redirectPathUpdate});
         })
         .catch(next);
 }
@@ -193,7 +193,7 @@ exports.updatePost_post =[
                                 res.redirect("/")
                             })
                             .then(editedConfig =>{
-                                res.redirect(req.user.url);
+                                res.redirect(req.body.redirectPathUpdate || "/");
                             })
                             
                             .catch(next);
@@ -220,7 +220,7 @@ exports.updatePost_post =[
                             return originalPost.save()
                         })
                         .then(originalPostUpdated =>{
-                            return res.redirect(req.user.url)
+                            return res.redirect(req.body.redirectPathUpdate || "/")
                         })
                         .catch(next);
 
@@ -232,8 +232,7 @@ exports.updatePost_post =[
 
 exports.deletePost_post = (req,res,next) => {
     const {profileId,postId} = req.params;
-    let redirectPath = req.body.redirectPath;
-    console.log("exports.deletePost_post -> redirectPath", redirectPath)
+    let redirectPathDelete = req.body.redirectPathDelete;
     if(!req.user)
         return res.redirect("/auth/log-in")
     if(req.user._id.toString() !== profileId.toString() && !req.user.isAdmin)
@@ -258,7 +257,7 @@ exports.deletePost_post = (req,res,next) => {
         })
             .then(results =>{
                 
-                res.redirect(redirectPath ? redirectPath : "/")
+                res.redirect(redirectPathDelete || "/")
             })
             .catch(next);
     
