@@ -2,7 +2,9 @@
   "name": "only-members",
   "version": "0.0.0",
   "private": true,
-  "engines": {"node": "14.15.0"},
+  "engines": {
+    "node": "14.15.0"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www"
